@@ -217,6 +217,52 @@
     font-size:17px;color:#6a5f4e;
   }
 
+  /* ---------- ИМЕННОЕ ПРИГЛАШЕНИЕ ---------- */
+  .namebox{
+    margin-top:26px;text-align:center;
+    transition:opacity .4s ease;
+  }
+  .stage.open .namebox{display:none}
+  .nb-hint{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:16px;color:var(--gold-soft);opacity:.75;margin-bottom:10px;
+  }
+  .nb-row{display:flex;gap:8px;justify-content:center}
+  .namebox input{
+    width:min(230px,60vw);
+    background:rgba(246,241,231,.06);
+    border:1px solid rgba(201,162,75,.45);
+    border-radius:6px;
+    padding:10px 14px;
+    font-family:'Manrope',sans-serif;font-size:14px;
+    color:var(--paper);text-align:center;outline:none;
+  }
+  .namebox input::placeholder{color:rgba(217,189,120,.55)}
+  .namebox input:focus{border-color:var(--gold)}
+  .namebox button{
+    background:linear-gradient(160deg,var(--wax-hi),var(--wax));
+    color:#f3d9a0;border:none;border-radius:6px;
+    padding:10px 16px;font-family:'Manrope',sans-serif;
+    font-size:13px;font-weight:500;cursor:pointer;
+    letter-spacing:.3px;
+  }
+  .namebox button:active{transform:scale(.97)}
+  .nb-err{
+    margin-top:10px;font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:15px;color:var(--gold-soft);min-height:20px;
+  }
+
+  .l-photo{text-align:center;margin-bottom:16px}
+  .l-photo img{
+    width:110px;height:138px;object-fit:cover;
+    border-radius:55px/69px;
+    border:3px solid var(--paper);
+    outline:1px solid rgba(201,162,75,.7);
+    outline-offset:3px;
+    box-shadow:0 4px 14px rgba(42,39,35,.28);
+    filter:sepia(.35) contrast(1.04) brightness(1.02);
+  }
+
   @media (max-width:380px){
     .l-year{font-size:54px}
     .letter{padding:30px 20px 26px}
@@ -237,7 +283,8 @@
   <!-- LETTER (flows above the envelope) -->
   <div class="letter-wrap">
     <div class="letter">
-      <div class="l-eyebrow">Приглашение</div>
+      <div class="l-photo" id="lphoto" hidden><img id="lphotoimg" alt="" loading="lazy"></div>
+      <div class="l-eyebrow" id="leyebrow">Приглашение</div>
       <div class="l-year">2006</div>
       <div class="l-sub">20 лет спустя</div>
       <div class="rule"></div>
@@ -274,7 +321,7 @@
         </div>
       </div>
 
-      <div class="l-foot">Ждём именно тебя</div>
+      <div class="l-foot" id="lfoot">Ждём именно тебя</div>
     </div>
   </div>
 
@@ -287,6 +334,16 @@
     </div>
     <div class="flap"></div>
     <div class="seal" id="seal"><span>2006</span></div>
+  </div>
+
+  <!-- именное приглашение -->
+  <div class="namebox" id="namebox">
+    <div class="nb-hint">получить именное приглашение</div>
+    <div class="nb-row">
+      <input id="nameinput" placeholder="Фамилия и имя" autocomplete="off" autocapitalize="words">
+      <button id="namebtn" type="button">Найти</button>
+    </div>
+    <div class="nb-err" id="nberr"></div>
   </div>
 
 </div>
@@ -319,6 +376,46 @@
   env.addEventListener('click',open);
   env.addEventListener('keydown',function(e){
     if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}
+  });
+
+  // ---------- Именные приглашения ----------
+  // Имён на странице нет: ключ — sha256 от нормализованных «фамилия имя»,
+  // фото лежат под случайными кодами. n — позиция имени в отсортированных словах.
+  const PERSONAL = {
+    'e46a3ebc5e42e253dfa4e9bb4c8d74b38799b56a742a6e3b1ae15bdebfce8c02': {img:'p/ecfe19c220.jpg', n:0}
+  };
+  const nameInput=document.getElementById('nameinput');
+  const nbErr=document.getElementById('nberr');
+
+  function normName(s){
+    return s.toLowerCase().replace(/ё/g,'е').trim().split(/\s+/).sort().join(' ');
+  }
+  async function sha256hex(s){
+    const buf=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+    return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  async function findPersonal(){
+    const raw=nameInput.value;
+    if(!raw.trim()){nbErr.textContent='Введи фамилию и имя';return;}
+    const norm=normName(raw);
+    const hit=PERSONAL[await sha256hex(norm)];
+    if(!hit){
+      nbErr.textContent='Не нашли такое имя — проверь написание';
+      return;
+    }
+    nbErr.textContent='';
+    const first=norm.split(' ')[hit.n];
+    const pretty=first.charAt(0).toUpperCase()+first.slice(1);
+    const ph=document.getElementById('lphoto');
+    document.getElementById('lphotoimg').src=hit.img;
+    ph.hidden=false;
+    document.getElementById('leyebrow').textContent='Приглашение для тебя';
+    document.getElementById('lfoot').textContent='Ждём именно тебя, '+pretty;
+    open();
+  }
+  document.getElementById('namebtn').addEventListener('click',findPersonal);
+  nameInput.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault();findPersonal();}
   });
 
 </script>
