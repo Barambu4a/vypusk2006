@@ -235,6 +235,37 @@
     font-family:'Cormorant Garamond',serif;font-style:italic;
     font-size:19px;color:var(--ink);text-align:center;margin-bottom:14px;
   }
+  /* галерея фото */
+  .gallery{
+    margin:16px 0 4px;
+  }
+  .gal-track{
+    display:flex;gap:8px;overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:2px;
+  }
+  .gal-track::-webkit-scrollbar{display:none}
+  .gal-track img{
+    flex:0 0 84%;scroll-snap-align:center;
+    width:84%;aspect-ratio:4/3;object-fit:cover;
+    border-radius:8px;
+    border:2px solid var(--paper);
+    outline:1px solid rgba(201,162,75,.55);
+    outline-offset:-2px;
+    box-shadow:0 4px 12px rgba(42,39,35,.22);
+    filter:sepia(.28) contrast(1.03);
+  }
+  .gal-dots{
+    display:flex;gap:6px;justify-content:center;margin-top:10px;
+  }
+  .gal-dots i{
+    width:6px;height:6px;border-radius:50%;
+    background:rgba(138,51,36,.28);transition:background .25s,transform .25s;
+  }
+  .gal-dots i.on{background:var(--wax);transform:scale(1.25)}
+
   /* программа вечера */
   .lp-title{
     margin:18px 0 12px;text-align:center;
@@ -383,6 +414,18 @@
       <div class="l-msg">
         <p class="greet">Дорогие одноклассники!</p>
         <p>Мы забронировали большой коттедж («Панорама») на берегу, в котором есть всё нужное для нашего мероприятия 🤗</p>
+
+        <div class="gallery" data-gallery>
+          <div class="gal-track">
+            <img src="img/cottage/1.jpg" alt="Коттедж «Панорама»" loading="lazy">
+            <img src="img/cottage/2.jpg" alt="Коттедж «Панорама»" loading="lazy">
+            <img src="img/cottage/3.jpg" alt="Коттедж «Панорама»" loading="lazy">
+            <img src="img/cottage/4.jpg" alt="Коттедж «Панорама»" loading="lazy">
+            <img src="img/cottage/5.jpg" alt="Коттедж «Панорама»" loading="lazy">
+            <img src="img/cottage/6.jpg" alt="Коттедж «Панорама»" loading="lazy">
+          </div>
+          <div class="gal-dots"></div>
+        </div>
         <div class="lp-title">✦ В программе вечера ✦</div>
         <div class="l-prog">
           <div class="lp-item"><span class="b">✦</span><span><strong>Трансфер</strong> — <em>организованный, для тех, кто готов уехать совместно</em></span></div>
@@ -442,6 +485,37 @@
       d.appendChild(s);
     }
   })();
+
+  // ---------- Галереи фото (точки-индикаторы + свайп) ----------
+  document.querySelectorAll('[data-gallery]').forEach(function(g){
+    const track=g.querySelector('.gal-track');
+    const dotsBox=g.querySelector('.gal-dots');
+    const imgs=track.querySelectorAll('img');
+    imgs.forEach(function(_,i){
+      const d=document.createElement('i');
+      if(i===0)d.className='on';
+      d.addEventListener('click',function(){
+        imgs[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+      });
+      dotsBox.appendChild(d);
+    });
+    const dots=dotsBox.querySelectorAll('i');
+    let raf=null;
+    track.addEventListener('scroll',function(){
+      if(raf)return;
+      raf=requestAnimationFrame(function(){
+        raf=null;
+        const c=track.scrollLeft+track.clientWidth/2;
+        let best=0,bd=1e9;
+        imgs.forEach(function(im,i){
+          const mid=im.offsetLeft+im.clientWidth/2;
+          const dd=Math.abs(mid-c);
+          if(dd<bd){bd=dd;best=i;}
+        });
+        dots.forEach(function(d,i){d.classList.toggle('on',i===best);});
+      });
+    });
+  });
 
   const stage=document.getElementById('stage');
   const env=document.getElementById('envelope');
