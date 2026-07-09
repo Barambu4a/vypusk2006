@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Встреча выпускников — 2006</title>
+<!-- Шрифты хостим сами: fonts.googleapis.com у мобильных операторов РФ
+     часто недоступен, а блокирующий @import давал белый экран. -->
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{
+    --ink:#2a2723;
+    --paper:#f6f1e7;
+    --paper-shade:#ece3d2;
+    --env-face:#4a5d52;
+    --env-face-2:#3c4d43;
+    --env-flap:#3c4d43;
+    --env-inner:#2f3d35;
+    --wax:#8a3324;
+    --wax-hi:#a8402e;
+    --gold:#c9a24b;
+    --gold-soft:#d9bd78;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+
+  html{height:100%}
+  html{background:#1c2620}
+  body{
+    font-family:'Manrope',sans-serif;
+    /* сплошной цвет-подстраховка + градиент; background-attachment:fixed
+       убран — на iOS Safari он отрисовывает фон пустым (белым) */
+    background-color:#1c2620;
+    background-image:
+      radial-gradient(120% 90% at 50% 0%, #2c3b33 0%, #1c2620 55%, #141b17 100%);
+    color:var(--ink);
+    min-height:100dvh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 24px;
+    overflow-x:hidden;
+    -webkit-tap-highlight-color:transparent;
+  }
+  /* once opened, align to top so the tall letter has room and scrolls */
+  body.opened{align-items:flex-start}
+
+  .dust{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+  .dust span{
+    position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;
+    background:var(--gold-soft);opacity:0;
+    animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) scale(.6);opacity:0}
+    12%{opacity:.6}
+    90%{opacity:.5}
+    100%{transform:translateY(-105vh) scale(1);opacity:0}
+  }
+
+  .stage{
+    position:relative;z-index:2;
+    width:min(420px,92vw);
+    perspective:1400px;
+  }
+
+  /* ---------- ENVELOPE ---------- */
+  .envelope{
+    position:relative;
+    width:100%;
+    aspect-ratio:7/4.6;
+    cursor:pointer;
+    transition:transform .5s ease;
+  }
+  .hint{
+    position:absolute;left:0;right:0;top:-40px;text-align:center;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:19px;color:var(--gold-soft);letter-spacing:.5px;
+    animation:breathe 2.6s ease-in-out infinite;
+    transition:opacity .4s ease;
+  }
+  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+
+  .env-body{
+    position:absolute;inset:0;border-radius:8px;
+    background:linear-gradient(160deg,var(--env-face) 0%,var(--env-face-2) 100%);
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.04);
+    overflow:hidden;
+  }
+  .env-body::before,.env-body::after{
+    content:"";position:absolute;top:0;bottom:0;width:52%;
+    background:linear-gradient(var(--env-face-2),var(--env-inner));
+  }
+  .env-body::before{left:0;clip-path:polygon(0 0,0 100%,100% 50%)}
+  .env-body::after{right:0;clip-path:polygon(100% 0,100% 100%,0 50%)}
+  .env-bottom{
+    position:absolute;left:0;right:0;bottom:0;height:58%;
+    background:linear-gradient(var(--env-face),var(--env-face-2));
+    clip-path:polygon(0 100%,100% 100%,50% 8%);
+    z-index:3;
+    box-shadow:0 -1px 0 rgba(255,255,255,.05);
+  }
+  .monogram{
+    position:absolute;z-index:4;left:0;right:0;bottom:16%;
+    text-align:center;font-family:'Cormorant Garamond',serif;
+    color:var(--gold);letter-spacing:4px;font-size:13px;font-weight:600;
+    text-transform:uppercase;opacity:.9;
+  }
+
+  .flap{
+    position:absolute;left:0;right:0;top:0;height:56%;
+    background:linear-gradient(var(--env-flap),var(--env-inner));
+    clip-path:polygon(0 0,100% 0,50% 100%);
+    transform-origin:top;
+    transition:transform .7s cubic-bezier(.6,.02,.2,.98);
+    z-index:6;
+    backface-visibility:hidden;
+  }
+  .flap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 40%)}
+
+  .seal{
+    position:absolute;z-index:7;left:50%;top:46%;
+    width:74px;height:74px;transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,var(--wax-hi),var(--wax) 60%,#6e2419 100%);
+    box-shadow:0 6px 14px rgba(0,0,0,.45), inset 0 2px 6px rgba(255,255,255,.25), inset 0 -4px 8px rgba(0,0,0,.35);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .4s ease, opacity .4s ease;
+  }
+  .seal span{
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:26px;color:#f3d9a0;text-shadow:0 1px 1px rgba(0,0,0,.4);
+    letter-spacing:1px;
+  }
+  .seal::before{
+    content:"";position:absolute;inset:7px;border-radius:50%;
+    border:1px dashed rgba(243,217,160,.5);
+  }
+
+  /* ---------- LETTER ----------
+     Lives in normal flow ABOVE the envelope, starts collapsed (hidden inside),
+     expands smoothly on open. No fixed % transforms → nothing "runs away". */
+  .letter-wrap{
+    position:relative;z-index:5;
+    max-height:0;
+    opacity:0;
+    overflow:hidden;
+    transform:translateY(24px);
+    transition:max-height .9s cubic-bezier(.2,.7,.2,1),
+               opacity .5s ease .15s,
+               transform .7s cubic-bezier(.2,.7,.2,1);
+    margin-bottom:-14px; /* tuck slightly into the envelope mouth */
+  }
+  .letter{
+    position:relative;
+    background:linear-gradient(180deg,var(--paper),var(--paper-shade));
+    border-radius:8px 8px 4px 4px;
+    padding:34px 26px 30px;
+    box-shadow:0 -6px 30px -8px rgba(0,0,0,.4);
+  }
+  .letter::before{
+    content:"";position:absolute;inset:8px;border:1px solid rgba(42,39,35,.18);border-radius:3px;pointer-events:none;
+  }
+
+  /* OPEN STATE */
+  .stage.open .flap{transform:rotateX(180deg);z-index:1}
+  .stage.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
+  .stage.open .envelope{cursor:default}
+  .stage.open .hint{opacity:0;pointer-events:none}
+  .stage.open .letter-wrap{
+    max-height:1400px;
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  /* letter content */
+  .l-eyebrow{
+    text-align:center;font-family:'Manrope';font-weight:500;
+    font-size:11px;letter-spacing:3px;text-transform:uppercase;
+    color:var(--wax);margin-bottom:6px;
+  }
+  .l-year{
+    text-align:center;font-family:'Cormorant Garamond',serif;
+    font-size:64px;line-height:1;font-weight:600;color:var(--ink);
+  }
+  .l-sub{
+    text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:20px;color:#6a5f4e;margin-top:2px;
+  }
+  .rule{
+    width:54px;height:1px;margin:18px auto;
+    background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  }
+  .l-body{
+    font-size:14.5px;line-height:1.6;color:#3a352d;text-align:center;
+    font-weight:300;
+  }
+  .l-body strong{font-weight:600;color:var(--ink)}
+
+  .details{margin:20px 0 4px;display:grid;gap:14px}
+  .row{
+    display:flex;gap:12px;align-items:flex-start;text-align:left;
+    padding-bottom:12px;border-bottom:1px dotted rgba(42,39,35,.18);
+  }
+  .row:last-child{border-bottom:none;padding-bottom:0}
+  .row .ic{
+    flex:0 0 22px;font-family:'Cormorant Garamond',serif;font-size:20px;
+    color:var(--wax);line-height:1.2;text-align:center;
+  }
+  .row .k{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#8a7f6c;font-weight:500}
+  .row .v{font-size:15px;color:var(--ink);font-weight:500;margin-top:1px}
+  .row .v small{display:block;font-weight:300;font-size:12.5px;color:#6a5f4e;margin-top:2px}
+
+  .l-foot{
+    margin-top:22px;text-align:center;
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:17px;color:#6a5f4e;
+  }
+
+  @media (max-width:380px){
+    .l-year{font-size:54px}
+    .letter{padding:30px 20px 26px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .dust{display:none}
+    .letter-wrap{transition:opacity .3s ease, max-height .3s ease}
+    .flap,.seal{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="dust" id="dust"></div>
+
+<div class="stage" id="stage">
+
+  <!-- LETTER (flows above the envelope) -->
+  <div class="letter-wrap">
+    <div class="letter">
+      <div class="l-eyebrow">Приглашение</div>
+      <div class="l-year">2006</div>
+      <div class="l-sub">20 лет спустя</div>
+      <div class="rule"></div>
+      <p class="l-body">
+        Прошло <strong>20 лет</strong>, как мы вышли из школьных стен.
+        Пришло время собраться снова — вспомнить, посмеяться
+        и увидеть, какими мы стали.
+      </p>
+
+      <div class="details">
+        <div class="row">
+          <div class="ic">✦</div>
+          <div><div class="k">Дата</div><div class="v">29 августа 2026 · суббота</div></div>
+        </div>
+        <div class="row">
+          <div class="ic">✦</div>
+          <div><div class="k">Время</div><div class="v">18:00</div></div>
+        </div>
+        <div class="row">
+          <div class="ic">✦</div>
+          <div><div class="k">Место</div><div class="v">Матвеевка<small>Точный адрес уточним ближе к дате</small></div></div>
+        </div>
+        <div class="row">
+          <div class="ic">✦</div>
+          <div><div class="k">Программа</div><div class="v">Праздничная программа и банкет</div></div>
+        </div>
+        <div class="row">
+          <div class="ic">✦</div>
+          <div><div class="k">Дресс-код</div><div class="v">Официальный · casual · вечерний · коктейльный</div></div>
+        </div>
+      </div>
+
+      <div class="l-foot">Ждём именно тебя</div>
+    </div>
+  </div>
+
+  <!-- ENVELOPE -->
+  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Открыть приглашение">
+    <div class="hint">нажмите, чтобы открыть</div>
+    <div class="env-body">
+      <div class="env-bottom"></div>
+      <div class="monogram">Выпуск 2006</div>
+    </div>
+    <div class="flap"></div>
+    <div class="seal" id="seal"><span>2006</span></div>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    const d=document.getElementById('dust');
+    for(let i=0;i<26;i++){
+      const s=document.createElement('span');
+      s.style.left=Math.random()*100+'%';
+      s.style.animationDuration=(6+Math.random()*8)+'s';
+      s.style.animationDelay=(-Math.random()*10)+'s';
+      const sc=.5+Math.random()*1.3;
+      s.style.transform='scale('+sc+')';
+      d.appendChild(s);
+    }
+  })();
+
+  const stage=document.getElementById('stage');
+  const env=document.getElementById('envelope');
+  function open(){
+    if(stage.classList.contains('open')) return;
+    stage.classList.add('open');
+    document.body.classList.add('opened');
+    // gently bring the top of the letter into view after it expands
+    setTimeout(function(){
+      window.scrollTo({top:0,behavior:'smooth'});
+    },200);
+  }
+  env.addEventListener('click',open);
+  env.addEventListener('keydown',function(e){
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}
+  });
+
+</script>
+</body>
+</html>
