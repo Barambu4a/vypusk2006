@@ -544,7 +544,27 @@
   // Имён на странице нет: ключ — sha256 от нормализованных «фамилия имя»,
   // фото лежат под случайными кодами. n — позиция имени в отсортированных словах.
   const PERSONAL = {
-    'e46a3ebc5e42e253dfa4e9bb4c8d74b38799b56a742a6e3b1ae15bdebfce8c02': {img:'p/ecfe19c220.jpg', n:0}
+    '45064caf1031997457072d8bb51c5009f3907bf364180a57bf651d05b2416bee':{img:'p/45064caf1031.jpg',name:'Юлия'},
+    'b0f689b87cf40e2c3cc5d4a75cf6ab0c8736835dd7e20ffffda9c6c97bd0a830':{img:'p/b0f689b87cf4.jpg',name:'Юлия'},
+    '80df3825d786ffd1263de8cc4fe75929b2bb3e6ed2ddacc0303706f564d2f4b7':{img:'p/80df3825d786.jpg',name:'Анна'},
+    'ae4d22d01883e6c1be434c44b5a2a83b677499b90e99bb03eb8f6bcaf69e99f1':{img:'p/ae4d22d01883.jpg',name:'Александра'},
+    '433ec52440e9738cc4bbb2483a446c4fd6a03e16aaf173ad0be463084f346cc5':{img:'p/433ec52440e9.jpg',name:'Дмитрий'},
+    'db500e27ecf7c66447861e10835bad8512c4095ddf012844d9ee6dcc16c07c5e':{img:'p/db500e27ecf7.jpg',name:'Екатерина'},
+    '9e07addfb50b57290eaef7ccc39cdfac00938c52f9d5eebf4407052dc3f7b008':{img:'p/9e07addfb50b.jpg',name:'Елена'},
+    'ab4950cbaf737114072148a4147a56fca27dba3412958b62404ea0f08afe3764':{img:'p/ab4950cbaf73.jpg',name:'Екатерина'},
+    '04688f0ab6dfa1b28aa64a33babeef119420860ef702be9c49e60fbaaf36905e':{img:'p/04688f0ab6df.jpg',name:'Наталья'},
+    '15badfa47df03c0694987fb2069695dcdc5b57cb2807c869654a146be16c9b4d':{img:'p/15badfa47df0.jpg',name:'Наталья'},
+    'e3763155a6670527fa8a566b3335ca859bc990ff42bfee155768fc184bf34b1d':{img:'p/e3763155a667.jpg',name:'Алексей'},
+    'e1ee84bca0703fb7b4503ea2808b26c772122b8ec34bd141cb1cb02ac0654298':{img:'p/e1ee84bca070.jpg',name:'Антон'},
+    'a93d1c3be1d788690a63396073acbd5e900613cea91f55eff05d6dcbd12d2c71':{img:'p/a93d1c3be1d7.jpg',name:'Елена'},
+    '3ada2a860971ee9976a595864faf9f3961105f8cb89b8c24ee815fb6ae6d9390':{img:'p/3ada2a860971.jpg',name:'Оля'},
+    '1fea2f2319d2cbf032725328adb1f935f384536d283d269a0f4f0f1a9470ebc3':{img:'p/3ada2a860971.jpg',name:'Оля'},
+    '407cf0c57db439c107c083516326f87732633431e6b1aa417986e87b56f1ab74':{img:'p/407cf0c57db4.jpg',name:'Ирина'},
+    'efaf936a64f52be456ff737571f6d5183b4d37ab926c1e93da67b3265c930fb1':{img:'p/efaf936a64f5.jpg',name:'Сергей'},
+    'dd7a6a785e6eb4d6ae9bb865a37a72d85b1b137415f8f10c81d676c2d9c959d3':{img:'p/dd7a6a785e6e.jpg',name:'Настя'},
+    '736695a3d940cf826a70f3fdbde341933079d77602363076f52eab3740fcc496':{img:'p/dd7a6a785e6e.jpg',name:'Настя'},
+    '903418f750414dc8be4a4b41c2eb538f89050b2c87962d949276eb6933ffe89f':{img:'p/903418f75041.jpg',name:'Дмитрий'},
+    'e46a3ebc5e42e253dfa4e9bb4c8d74b38799b56a742a6e3b1ae15bdebfce8c02':{img:'p/ecfe19c220.jpg',name:'Ирина'}
   };
   const nameInput=document.getElementById('nameinput');
   const nbErr=document.getElementById('nberr');
@@ -566,8 +586,7 @@
       return;
     }
     nbErr.textContent='';
-    const first=norm.split(' ')[hit.n];
-    const pretty=first.charAt(0).toUpperCase()+first.slice(1);
+    const pretty=hit.name;
     const ph=document.getElementById('lphoto');
     document.getElementById('lphotoimg').src=hit.img;
     ph.hidden=false;
