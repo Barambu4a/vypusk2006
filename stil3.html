@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Manrope',sans-serif;background:#141218;color:#eee;padding:20px 14px 60px}
+  h1{font-family:'Cormorant Garamond',serif;text-align:center;font-size:24px;margin-bottom:2px}
+  .sub{text-align:center;font-size:12px;color:#8f8578;margin-bottom:24px}
+  .variant{max-width:400px;margin:0 auto 40px}
+  .vtitle{text-align:center;font-family:'Cormorant Garamond',serif;font-size:20px;margin-bottom:2px}
+  .vdesc{text-align:center;font-size:12px;color:#9a9082;margin-bottom:12px}
+  .card{position:relative;border-radius:20px;overflow:hidden;height:400px;display:flex;flex-direction:column;
+        align-items:center;justify-content:center;text-align:center;padding:24px}
+  .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;z-index:3}
+  .hero{position:relative;z-index:3;font:900 82px/1 'Arial Black',Impact,sans-serif;letter-spacing:1px}
+  .tag{z-index:3;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;margin-top:4px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  @keyframes fall{0%{transform:translateY(-30px)}100%{transform:translateY(430px)}}
+  @keyframes tw{0%,100%{opacity:.3}50%{opacity:1}}
+  @keyframes hue{to{filter:hue-rotate(360deg)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* 1 Иридесцент/голо */
+  .k1{background:conic-gradient(from 0deg,#ffd1f0,#d1e8ff,#d1ffe8,#fff7d1,#e8d1ff,#ffd1f0);animation:hue 12s linear infinite}
+  .k1::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,transparent,rgba(255,255,255,.5))}
+  .k1 .eyebrow{color:#6a4a7a}.k1 .tag{color:#5a4a6a}
+  .k1 .hero{color:#fff;text-shadow:0 2px 10px rgba(180,120,220,.6);-webkit-text-stroke:1px rgba(255,255,255,.8)}
+
+  /* 2 Кассета-микстейп */
+  .k2{background:linear-gradient(160deg,#2a2440,#171327)}
+  .k2 .tape{position:relative;z-index:3;width:280px;background:#e8734f;border-radius:12px;padding:14px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+  .k2 .lbl{background:#fbf1df;border-radius:5px;padding:10px 8px}
+  .k2 .lbl .eyebrow{color:#b6503a;position:static}
+  .k2 .lbl .hero{font-size:46px;color:#2a2440}.k2 .lbl .tag{color:#7a5a4a}
+  .k2 .reels{display:flex;justify-content:space-around;margin-top:12px}
+  .k2 .reel{width:52px;height:52px;border-radius:50%;background:radial-gradient(#171327 26%,#4a3f2a 27%,#e8c98a 40%,#4a3f2a 55%);border:3px solid #c9b98a;animation:spin 4s linear infinite}
+
+  /* 3 Диско-шар */
+  .k3{background:radial-gradient(120% 90% at 50% 120%,#3a2466,#150a2e 60%,#07040f)}
+  .k3 .ball{width:120px;height:120px;border-radius:50%;z-index:3;animation:floaty 4s ease-in-out infinite;
+    background:
+      repeating-conic-gradient(from 0deg,#cfe0ff 0 15deg,#8fa8d8 15deg 30deg),
+      radial-gradient(circle at 35% 30%,#fff,#9fb0d0);
+    background-blend-mode:overlay;box-shadow:0 0 26px rgba(150,190,255,.6)}
+  .k3 .hero{font-size:60px;color:#fff;margin-top:14px;text-shadow:0 0 12px #7ac8ff}
+  .k3 .eyebrow{color:#c7b3ff}.k3 .tag{color:#dfd6ff}
+  .k3 .d{position:absolute;width:5px;height:5px;border-radius:50%;background:#bfe0ff;animation:tw 2s infinite}
+
+  /* 4 Полароид/скрапбук */
+  .k4{background:#efe7d8;background-image:radial-gradient(rgba(160,140,110,.12) 1px,transparent 1px);background-size:14px 14px}
+  .k4 .pola{position:relative;z-index:3;background:#fff;padding:12px 12px 40px;border-radius:3px;transform:rotate(-4deg);box-shadow:0 12px 26px rgba(90,70,40,.3);width:230px}
+  .k4 .ph{height:150px;border-radius:2px;background:linear-gradient(135deg,#f7b7c8,#f7d9a8,#a8d8f7)}
+  .k4 .cap{font-family:'Cormorant Garamond',serif;font-style:italic;color:#3a352d;font-size:20px;margin-top:8px}
+  .k4 .tape{position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(3deg);width:80px;height:22px;background:rgba(220,200,120,.55);z-index:4}
+  .k4 .hero{position:absolute;bottom:44px;left:0;right:0;font-size:34px;color:#c65a7a}
+
+  /* 5 70s санберст */
+  .k5{background:repeating-conic-gradient(from 0deg at 50% 42%,#e8894f 0 12deg,#f2b979 12deg 24deg);}
+  .k5::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,rgba(251,241,223,.9) 22%,transparent 42%)}
+  .k5 .eyebrow{color:#8a3f22}.k5 .tag{color:#7a4a2a}
+  .k5 .hero{color:#7a3418;font-size:74px;text-shadow:2px 2px 0 #fbf1df}
+
+  /* 6 Мемфис 80s */
+  .k6{background:#fbf6ee}
+  .k6 .sh{position:absolute;z-index:1}
+  .k6 .hero{color:#1c1a24;font-size:80px;z-index:3}
+  .k6 .eyebrow{color:#e8467a;font-weight:700}.k6 .tag{color:#3a352d}
+
+  /* 7 Аура blobs */
+  .k7{background:#f6f1f7;overflow:hidden}
+  .k7 .blob{position:absolute;border-radius:50%;filter:blur(34px);opacity:.75;animation:floaty 7s ease-in-out infinite}
+  .k7 .hero{color:#2a2233;font-size:80px;z-index:3}
+  .k7 .eyebrow{color:#9a5a8a}.k7 .tag{color:#6a5a6a}
+
+  /* 8 Билет на вечеринку */
+  .k8{background:linear-gradient(160deg,#20233a,#12131f)}
+  .k8 .ticket{position:relative;z-index:3;background:#fbf1df;color:#20233a;border-radius:10px;width:300px;display:flex;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+  .k8 .stub{flex:0 0 74px;background:#e8734f;color:#fff;display:flex;align-items:center;justify-content:center;
+    writing-mode:vertical-rl;transform:rotate(180deg);font-weight:800;letter-spacing:3px;font-size:12px;
+    border-left:2px dashed rgba(32,35,58,.35)}
+  .k8 .main{padding:16px 14px;text-align:left;flex:1}
+  .k8 .main .eyebrow{position:static;color:#b6503a}
+  .k8 .main .hero{font-size:44px;color:#20233a}
+  .k8 .main .tag{color:#7a5a4a}
+  .k8 .bars{height:22px;margin-top:8px;background:repeating-linear-gradient(90deg,#20233a 0 2px,transparent 2px 5px)}
+
+  /* 9 Неон-вывеска */
+  .k9{background:#181414;background-image:linear-gradient(rgba(0,0,0,.4),rgba(0,0,0,.5)),repeating-linear-gradient(0deg,#241d1d 0 22px,#2c2424 22px 24px)}
+  .k9 .eyebrow{color:#ff8fd0;text-shadow:0 0 8px #ff3fae}
+  .k9 .hero{color:#fff;font-size:78px;text-shadow:0 0 6px #fff,0 0 14px #22e6ff,0 0 30px #22a0ff,0 0 54px #22a0ff;animation:tw 3s ease-in-out infinite}
+  .k9 .tag{color:#ffe14d;text-shadow:0 0 8px #e0a000;font-style:italic}
+
+  /* 10 Поп-арт комикс */
+  .k10{background:#ffd23f;background-image:radial-gradient(#e84a6a 18%,transparent 19%);background-size:16px 16px}
+  .k10 .plate{position:relative;z-index:3;background:#fff;border:4px solid #1c1a24;border-radius:14px;padding:22px 20px;box-shadow:8px 8px 0 #1c1a24}
+  .k10 .eyebrow{position:static;color:#2264d8;font-weight:800}
+  .k10 .hero{font-size:74px;color:#e8467a;-webkit-text-stroke:3px #1c1a24;text-shadow:4px 4px 0 #2264d8}
+  .k10 .tag{color:#1c1a24;font-weight:600;font-style:normal;font-family:'Manrope'}
+  .k10 .burst{position:absolute;top:-14px;right:-10px;z-index:4;background:#2ec5c0;color:#1c1a24;font-weight:900;
+    padding:14px 12px;border:3px solid #1c1a24;font-size:13px;transform:rotate(12deg);
+    clip-path:polygon(50% 0,61% 20%,83% 12%,78% 35%,100% 45%,80% 55%,88% 80%,63% 74%,50% 100%,37% 74%,12% 80%,20% 55%,0 45%,22% 35%,17% 12%,39% 20%)}
+</style>
+</head>
+<body>
+  <h1>Ещё 10 концептов</h1>
+  <div class="sub">весёлые и небанальные · выбери, что зацепит</div>
+
+  <div class="variant"><div class="vtitle">1 · Голография ✨</div><div class="vdesc">переливающийся перламутр, «meta-sheen» 2026</div>
+    <div class="card k1"><div class="eyebrow">Встреча выпускников</div><div class="hero">2006</div><div class="tag">20 лет спустя</div></div></div>
+
+  <div class="variant"><div class="vtitle">2 · Кассета-микстейп 📼</div><div class="vdesc">ностальгия нулевых, крутятся катушки</div>
+    <div class="card k2"><div class="tape"><div class="lbl"><div class="eyebrow">Встреча выпускников</div><div class="hero">2006</div><div class="tag">20 лет спустя</div></div>
+      <div class="reels"><div class="reel"></div><div class="reel"></div></div></div></div></div>
+
+  <div class="variant"><div class="vtitle">3 · Диско-шар 🪩</div><div class="vdesc">танцпол, блики, лёгкое парение</div>
+    <div class="card k3" id="k3"><div class="ball"></div><div class="eyebrow" style="margin-top:14px">Встреча выпускников</div><div class="hero">2006</div><div class="tag">20 лет спустя</div></div></div>
+
+  <div class="variant"><div class="vtitle">4 · Полароид/скрапбук 📸</div><div class="vdesc">по-дружески, тепло, «как в альбоме»</div>
+    <div class="card k4"><div class="pola"><div class="tape"></div><div class="ph"></div><div class="hero">2006</div><div class="cap">20 лет спустя</div></div></div></div>
+
+  <div class="variant"><div class="vtitle">5 · 70s санберст 🌈</div><div class="vdesc">ретро-лучи, тёплый «грув»</div>
+    <div class="card k5"><div class="eyebrow">Встреча выпускников</div><div class="hero">2006</div><div class="tag">20 лет спустя</div></div></div>
+
+  <div class="variant"><div class="vtitle">6 · Мемфис 80s 🔺</div><div class="vdesc">геометрия, зигзаги, дерзко и ярко</div>
+    <div class="card k6" id="k6"><div class="eyebrow">Встреча выпускников</div><div class="hero">2006</div><div class="tag">20 лет спустя</div></div></div>
+
+  <div class="variant"><div class="vtitle">7 · Аура-градиент 🫧</div><div class="vdesc">мягкие светящиеся пятна, мечтательно</div>
+    <div class="card k7" id="k7"><div class="eyebrow">Встреча выпускников</div><div class="hero">2006</div><div class="tag">20 лет спустя</div></div></div>
+
+  <div class="variant"><div class="vtitle">8 · Билет на вечеринку 🎟️</div><div class="vdesc">«вход на выпускной» — тематично и игриво</div>
+    <div class="card k8"><div class="ticket"><div class="stub">ВЫПУСК 2006</div>
+      <div class="main"><div class="eyebrow">Admit one · встреча</div><div class="hero">2006</div><div class="tag">20 лет спустя</div><div class="bars"></div></div></div></div></div>
+
+  <div class="variant"><div class="vtitle">9 · Неон-вывеска 🍸</div><div class="vdesc">барный вайб, светящаяся вывеска на стене</div>
+    <div class="card k9"><div class="eyebrow">Встреча выпускников</div><div class="hero">2006</div><div class="tag">20 лет спустя</div></div></div>
+
+  <div class="variant"><div class="vtitle">10 · Поп-арт комикс 💥</div><div class="vdesc">жирный контур, halftone-точки, бум!</div>
+    <div class="card k10"><div class="burst">БУМ!</div><div class="plate"><div class="eyebrow">Встреча выпускников</div><div class="hero">2006</div><div class="tag">20 лет спустя</div></div></div></div>
+
+<script>
+  // диско блики
+  const k3=document.getElementById('k3');
+  for(let i=0;i<20;i++){const d=document.createElement('span');d.className='d';
+    d.style.left=Math.random()*100+'%';d.style.top=Math.random()*100+'%';d.style.animationDelay=(-Math.random()*2)+'s';k3.appendChild(d);}
+  // мемфис фигуры
+  const k6=document.getElementById('k6');const cols=['#e8467a','#2ec5c0','#ffd23f','#7b5cff','#ff8234'];
+  const shapes=['●','▲','■','＋','〜','◆'];
+  for(let i=0;i<14;i++){const s=document.createElement('div');s.className='sh';s.textContent=shapes[i%6];
+    s.style.left=Math.random()*90+'%';s.style.top=Math.random()*90+'%';s.style.color=cols[i%5];
+    s.style.fontSize=(16+Math.random()*26)+'px';s.style.transform='rotate('+(Math.random()*90)+'deg)';k6.appendChild(s);}
+  // аура пятна
+  const k7=document.getElementById('k7');const auro=['#ffb3d9','#b3c6ff','#c6ffd9','#ffe0b3','#e0b3ff'];
+  for(let i=0;i<5;i++){const b=document.createElement('span');b.className='blob';
+    const sz=120+Math.random()*90;b.style.width=b.style.height=sz+'px';
+    b.style.left=Math.random()*80+'%';b.style.top=Math.random()*80+'%';b.style.background=auro[i];
+    b.style.animationDelay=(-Math.random()*7)+'s';k7.appendChild(b);}
+</script>
+</body>
+</html>
