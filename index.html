@@ -25,7 +25,15 @@
   *{box-sizing:border-box;margin:0;padding:0}
 
   html{height:100%}
-  html{background:#1c2620}
+  html{
+    background:#1c2620;
+    /* не давать iOS/Android раздувать шрифт в узкой колонке — иначе текст
+       вылезает за край на некоторых телефонах */
+    -webkit-text-size-adjust:100%;
+    text-size-adjust:100%;
+    max-width:100%;
+    overflow-x:hidden;
+  }
   body{
     font-family:'Manrope',sans-serif;
     /* сплошной цвет-подстраховка + градиент; background-attachment:fixed
@@ -38,7 +46,8 @@
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:40px 24px;
+    padding:40px 16px;
+    max-width:100%;
     overflow-x:hidden;
     -webkit-tap-highlight-color:transparent;
   }
@@ -60,7 +69,10 @@
 
   .stage{
     position:relative;z-index:2;
-    width:min(420px,92vw);
+    /* ширина жёстко привязана к экрану: конверт+письмо никогда не шире вьюпорта
+       (16px паддинг body с каждой стороны = 32px) */
+    width:min(420px, calc(100vw - 32px));
+    max-width:100%;
     perspective:1400px;
   }
 
@@ -200,15 +212,19 @@
   }
   .l-body{
     font-size:14.5px;line-height:1.6;color:#3a352d;text-align:center;
-    font-weight:300;
+    font-weight:300;overflow-wrap:break-word;
   }
   .l-body strong{font-weight:600;color:var(--ink)}
+  .l-msg p,.l-important p{overflow-wrap:break-word}
 
   .details{margin:20px 0 4px;display:grid;gap:14px}
   .row{
     display:flex;gap:12px;align-items:flex-start;text-align:left;
     padding-bottom:12px;border-bottom:1px dotted rgba(42,39,35,.18);
+    min-width:0;
   }
+  .row>div{min-width:0}
+  .row .v{overflow-wrap:break-word}
   .row:last-child{border-bottom:none;padding-bottom:0}
   .row .ic{
     flex:0 0 22px;font-family:'Cormorant Garamond',serif;font-size:20px;
