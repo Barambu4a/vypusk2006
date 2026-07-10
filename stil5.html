@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{--burg:#9c1f47;--burg-2:#7a1636;--gold:#c9a24b;--gold-soft:#dcc07f;--cream:#f4ead9;--ink:#4a3a30}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  body{font-family:'Manrope',sans-serif;background:#1b1712;color:#eee;padding:18px 12px 60px}
+  .h{font-family:'Cormorant Garamond',serif;text-align:center;font-size:22px;margin-bottom:2px}
+  .sub{text-align:center;font-size:12px;color:#8f8578;margin-bottom:20px}
+  .stage{width:min(420px,100%);margin:0 auto}
+
+  /* ===== ОБЛОЖКА ===== */
+  .cover{position:relative;width:100%;aspect-ratio:640/1280;border-radius:12px;overflow:hidden;
+         background:url('img/design/cover.jpg') center/cover no-repeat;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+  .cf{position:absolute;left:18.5%;right:18.5%;top:82.4%;height:4.6%;display:flex;align-items:center;
+      background:#22301c;border:1px solid rgba(201,162,75,.7);border-radius:6px;
+      padding:0 14px;color:var(--gold-soft);font-size:12px;letter-spacing:1px;text-transform:uppercase}
+  .cf input{flex:1;background:transparent;border:none;outline:none;color:var(--cream);font-size:12px;
+      letter-spacing:1px;text-transform:uppercase;font-family:'Manrope'}
+  .cf input::placeholder{color:var(--gold-soft);opacity:.9}
+  .cbtn{position:absolute;left:18.5%;width:49%;top:88.4%;height:5%;border:none;border-radius:6px;cursor:pointer;
+      background:linear-gradient(160deg,#b0284f,#8a1a3c);color:#f5dca8;font-weight:600;letter-spacing:2px;
+      text-transform:uppercase;font-size:12px}
+  .taphint{position:absolute;left:0;right:0;top:26%;text-align:center;color:transparent;height:16%;cursor:pointer;z-index:4}
+
+  /* ===== ПИСЬМО ===== */
+  .letter{position:relative;margin-top:16px;background:url('img/design/letterbg.jpg');
+          background-size:100% 100%;background-repeat:no-repeat;
+          padding:8% 11% 7%;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+  .l-photo{width:34%;aspect-ratio:4/5;margin:2% auto 0;border-radius:50%;overflow:hidden;
+           border:3px solid #fff;outline:2px solid var(--gold);outline-offset:1px;box-shadow:0 6px 16px rgba(90,40,50,.25)}
+  .l-photo img{width:100%;height:100%;object-fit:cover}
+  .l-eye{text-align:center;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--burg);margin-top:16px;font-weight:600}
+  .l-big{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:46px;color:var(--burg);line-height:1.02}
+  .l-scr{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--burg-2)}
+  .l-hrt{text-align:center;color:var(--burg);margin:8px 0 14px;font-size:13px}
+  .l-body{text-align:center;font-size:13px;line-height:1.7;color:#4a3f38;font-weight:300}
+  .rows{margin-top:20px;display:grid;gap:14px}
+  .r{display:flex;gap:12px;align-items:center}
+  .r .ic{flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:var(--burg);display:flex;align-items:center;justify-content:center}
+  .r .ic svg{width:20px;height:20px;stroke:#f5dca8;fill:none;stroke-width:1.6}
+  .r .k{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--burg);font-weight:700}
+  .r .v{font-size:14px;color:var(--ink);margin-top:1px}
+  .r .v small{display:block;font-weight:300;font-size:12.5px;color:#6a5a4e}
+  .l-foot{margin-top:20px;text-align:center}
+  .l-foot .t{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--burg);font-weight:700;margin-bottom:6px}
+  .l-foot .v{font-size:14px;color:var(--ink);line-height:1.8}
+</style>
+</head>
+<body>
+  <div class="h">Твой дизайн · оживлённый</div>
+  <div class="sub">картинки — фон, весь текст наложен живьём</div>
+
+  <div class="stage">
+    <!-- ОБЛОЖКА -->
+    <div class="cover">
+      <div class="taphint"></div>
+      <div class="cf"><input placeholder="Фамилия и имя"></div>
+      <button class="cbtn">Найти</button>
+    </div>
+
+    <!-- ПИСЬМО -->
+    <div class="letter">
+      <div class="l-photo"><img src="p/ecfe19c220.jpg" alt=""></div>
+      <div class="l-eye">Приглашаем на встречу</div>
+      <div class="l-big">20 ЛЕТ</div>
+      <div class="l-scr">со дня нашего выпуска</div>
+      <div class="l-hrt">♥</div>
+      <div class="l-body">Прошло 20 лет, как мы вышли из школьных стен. Пришло время собраться снова — вспомнить, посмеяться и увидеть, какими мы стали.</div>
+      <div class="rows">
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></div><div><div class="k">Дата</div><div class="v">29 августа 2026 · суббота</div></div></div>
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><div class="k">Время</div><div class="v">15:00</div></div></div>
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s7-6 7-12a7 7 0 1 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><div class="k">Место</div><div class="v">Новосибирск, Матвеевка<small>ул. Тальниковая, д. 29</small></div></div></div>
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><path d="M8 3h8l-1 7a3 3 0 0 1-6 0z"/><path d="M12 13v6M8 21h8"/></svg></div><div><div class="k">Программа</div><div class="v">Праздничная программа и банкет</div></div></div>
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 7a2 2 0 1 0-1.4-3.4M12 7v3M4 20l8-6 8 6z"/></svg></div><div><div class="k">Дресс-код</div><div class="v">Casual · Вечерний</div></div></div>
+      </div>
+      <div class="l-foot"><div class="t">По всем вопросам</div><div class="v">«А» класс — Краснова<br>«Б» класс — Языков</div></div>
+    </div>
+  </div>
+</body>
+</html>
