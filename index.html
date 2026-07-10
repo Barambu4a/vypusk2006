@@ -4,56 +4,96 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Встреча выпускников — 2006</title>
-<!-- Шрифты хостим сами: fonts.googleapis.com у мобильных операторов РФ
-     часто недоступен, а блокирующий @import давал белый экран. -->
 <link rel="stylesheet" href="fonts/fonts.css">
 <style>
-  :root{
-    --ink:#2a2723;
-    --paper:#f6f1e7;
-    --paper-shade:#ece3d2;
-    --env-face:#4a5d52;
-    --env-face-2:#3c4d43;
-    --env-flap:#3c4d43;
-    --env-inner:#2f3d35;
-    --wax:#8a3324;
-    --wax-hi:#a8402e;
-    --gold:#c9a24b;
-    --gold-soft:#d9bd78;
-  }
-
+  :root{--burg:#9c1f47;--burg-2:#7a1636;--gold:#c9a24b;--gold-soft:#dcc07f;--cream:#f4ead9;--ink:#4a3a30}
   *{box-sizing:border-box;margin:0;padding:0}
+  html{background:#151009;-webkit-text-size-adjust:100%;text-size-adjust:100%;max-width:100%;overflow-x:hidden}
+  body{font-family:'Manrope',sans-serif;color:var(--ink);
+       background:radial-gradient(120% 90% at 50% 0%,#2a1c14 0%,#1c130c 55%,#120c07 100%);
+       min-height:100dvh;display:flex;align-items:flex-start;justify-content:center;
+       padding:28px 14px 60px;max-width:100%;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+  .stage{position:relative;width:min(420px,calc(100vw - 28px));max-width:100%}
 
-  html{height:100%}
-  html{
-    background:#1c2620;
-    /* не давать iOS/Android раздувать шрифт в узкой колонке — иначе текст
-       вылезает за край на некоторых телефонах */
-    -webkit-text-size-adjust:100%;
-    text-size-adjust:100%;
-    max-width:100%;
-    overflow-x:hidden;
-  }
-  body{
-    font-family:'Manrope',sans-serif;
-    /* сплошной цвет-подстраховка + градиент; background-attachment:fixed
-       убран — на iOS Safari он отрисовывает фон пустым (белым) */
-    background-color:#1c2620;
-    background-image:
-      radial-gradient(120% 90% at 50% 0%, #2c3b33 0%, #1c2620 55%, #141b17 100%);
-    color:var(--ink);
-    min-height:100dvh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:40px 16px;
-    max-width:100%;
-    overflow-x:hidden;
-    -webkit-tap-highlight-color:transparent;
-  }
-  /* once opened, align to top so the tall letter has room and scrolls */
-  body.opened{align-items:flex-start}
+  /* ===== ОБЛОЖКА ===== */
+  .cover{position:relative;width:100%;aspect-ratio:640/910;border-radius:14px;overflow:hidden;cursor:pointer;
+         background:url('img/design/cover5.jpg') center/cover no-repeat;
+         box-shadow:0 24px 50px -18px rgba(0,0,0,.75);transition:transform .4s ease}
+  .cover:active{transform:scale(.99)}
+  .c-hint{position:absolute;left:0;right:0;top:13%;text-align:center;
+          font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:2.5px;text-transform:uppercase;
+          font-size:12.5px;color:var(--gold-soft);animation:breathe 2.6s ease-in-out infinite;pointer-events:none}
+  .c-hint .hrt{color:#c94d72}
+  @keyframes breathe{0%,100%{opacity:.5}50%{opacity:1}}
+  .seal-txt{position:absolute;left:49.2%;top:53.2%;transform:translate(-50%,-50%);
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:min(20px,calc((100vw - 28px) * 0.0476));
+    color:#dfb473;letter-spacing:.5px;pointer-events:none;
+    text-shadow:0 1px 2px rgba(60,10,25,.55)}
 
+  /* ===== ПИСЬМО ===== */
+  .letter-wrap{position:relative;z-index:5;max-height:0;opacity:0;overflow:hidden;transform:translateY(60px);
+    transition:max-height 1.2s cubic-bezier(.2,.7,.2,1),opacity .5s ease .15s,transform .8s cubic-bezier(.2,.7,.2,1),
+               margin-bottom .8s cubic-bezier(.2,.7,.2,1);
+    margin-bottom:0}
+  /* письмо ложится ПОВЕРХ конверта: перекрывает его, снизу выглядывает «ВЫПУСК 2006» */
+  .stage.open .letter-wrap{max-height:9000px;opacity:1;transform:translateY(0);margin-bottom:-104%}
+  .cover{z-index:1}
+  .stage.open .cover{cursor:default;pointer-events:none}
+  .stage.open .c-hint{display:none}
+  .letter{position:relative;border-radius:14px;overflow:hidden;
+          background:url('img/design/letterbg-tall.jpg');background-size:100% 100%;
+          padding:9% 10.5% 8%;box-shadow:0 18px 40px -14px rgba(0,0,0,.7)}
+
+  .l-eye{text-align:center;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--burg);font-weight:600;margin-top:6px;text-shadow:0 0 8px rgba(244,234,217,.95)}
+  .l-big{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:46px;color:var(--burg);line-height:1.05;margin-top:2px;font-variant-numeric:lining-nums;text-shadow:0 0 10px rgba(244,234,217,.95),0 0 20px rgba(244,234,217,.8)}
+  .l-scr{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--burg-2);text-shadow:0 0 10px rgba(244,234,217,.95),0 0 20px rgba(244,234,217,.8)}
+  .l-hrt{text-align:center;color:var(--burg);margin:8px 0 14px;font-size:13px}
+  .l-body{text-align:center;font-size:13px;line-height:1.7;color:#4a3f38;font-weight:300;overflow-wrap:break-word;width:88%;margin:0 auto;text-shadow:0 0 8px rgba(244,234,217,.9),0 0 14px rgba(244,234,217,.7)}
+  .l-body strong{font-weight:600;color:var(--burg-2)}
+
+  .rows{margin-top:20px;display:grid;gap:14px}
+  .r{display:flex;gap:12px;align-items:center;min-width:0}
+  .r>div{min-width:0}
+  .r .ic{flex:0 0 40px;width:40px;height:40px;border-radius:50%;background:var(--burg);display:flex;align-items:center;justify-content:center}
+  .r .ic svg{width:20px;height:20px;stroke:#f5dca8;fill:none;stroke-width:1.6}
+  .r .k{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--burg);font-weight:700}
+  .r .v{font-size:14px;color:var(--ink);margin-top:1px;overflow-wrap:break-word}
+  .r .v small{display:block;font-weight:300;font-size:12.5px;color:#6a5a4e}
+
+  .rule{width:60px;height:1px;margin:22px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+  .greet{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:var(--burg-2);margin-bottom:12px}
+  .msg p{font-size:13px;line-height:1.7;color:#4a3f38;font-weight:300;margin-bottom:11px;text-align:left;overflow-wrap:break-word}
+
+  .lp-title{margin:16px 0 12px;text-align:center;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--burg);font-weight:700}
+  .l-prog{display:grid;gap:9px;text-align:left}
+  .lp-item{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6;color:#4a3f38;font-weight:300}
+  .lp-item .b{flex:0 0 14px;color:var(--gold);font-size:13px;line-height:1.5}
+  .lp-item strong{font-weight:600;color:var(--burg-2)}
+  .lp-item em{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14.5px;color:#7a5a52}
+
+  .gallery{margin:12px 0 6px}
+  .gal-track{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px}
+  .gal-track::-webkit-scrollbar{display:none}
+  .gal-track img{flex:0 0 84%;scroll-snap-align:center;width:84%;aspect-ratio:4/3;object-fit:cover;
+    border-radius:8px;border:2px solid #fff;outline:1px solid rgba(201,162,75,.6);outline-offset:-2px;
+    box-shadow:0 4px 12px rgba(90,40,50,.22)}
+  .gal-dots{display:flex;gap:6px;justify-content:center;margin-top:9px}
+  .gal-dots i{width:6px;height:6px;border-radius:50%;background:rgba(156,31,71,.25);transition:background .25s,transform .25s}
+  .gal-dots i.on{background:var(--burg);transform:scale(1.25)}
+
+  .l-important{margin-top:16px;padding:14px 16px;text-align:left;border:1px solid rgba(156,31,71,.4);
+    background:rgba(156,31,71,.06);border-radius:8px}
+  .l-important .li-title{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--burg);font-weight:700;margin-bottom:8px}
+  .l-important p{font-size:13px;line-height:1.65;color:#4a3f38;font-weight:300;margin-bottom:9px;overflow-wrap:break-word}
+  .l-important p:last-child{margin-bottom:0}
+  .l-important strong{font-weight:700;color:var(--burg)}
+
+  .l-foot-t{margin-top:20px;text-align:center;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--burg);font-weight:700;margin-bottom:6px}
+  .l-foot-v{text-align:center;font-size:14px;color:var(--ink);line-height:1.8}
+  .l-fin{margin-top:16px;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--burg-2)}
+
+  /* пылинки на фоне страницы (поднимаются вверх) */
   .dust{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
   .dust span{
     position:absolute;bottom:-10px;width:3px;height:3px;border-radius:50%;
@@ -62,454 +102,121 @@
   }
   @keyframes rise{
     0%{transform:translateY(0) scale(.6);opacity:0}
-    12%{opacity:.6}
-    90%{opacity:.5}
+    12%{opacity:.55}
+    90%{opacity:.45}
     100%{transform:translateY(-105vh) scale(1);opacity:0}
   }
+  .stage{z-index:2}
 
-  .stage{
-    position:relative;z-index:2;
-    /* ширина жёстко привязана к экрану: конверт+письмо никогда не шире вьюпорта
-       (16px паддинг body с каждой стороны = 32px) */
-    width:min(420px, calc(100vw - 32px));
-    max-width:100%;
-    perspective:1400px;
+  /* золотая пыльца, осыпающаяся с веточек на конверте */
+  .cdust{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
+  .cdust span{
+    position:absolute;border-radius:50%;
+    background:#e6c887;box-shadow:0 0 5px rgba(230,200,135,.8);
+    opacity:0;animation:cfall linear infinite;
   }
-
-  /* ---------- ENVELOPE ---------- */
-  .envelope{
-    position:relative;
-    width:100%;
-    aspect-ratio:7/4.6;
-    cursor:pointer;
-    transition:transform .5s ease;
-  }
-  .hint{
-    position:absolute;left:0;right:0;top:-40px;text-align:center;
-    font-family:'Cormorant Garamond',serif;font-style:italic;
-    font-size:19px;color:var(--gold-soft);letter-spacing:.5px;
-    animation:breathe 2.6s ease-in-out infinite;
-    transition:opacity .4s ease;
-  }
-  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
-
-  .env-body{
-    position:absolute;inset:0;border-radius:8px;
-    background:linear-gradient(160deg,var(--env-face) 0%,var(--env-face-2) 100%);
-    box-shadow:0 30px 60px -20px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.04);
-    overflow:hidden;
-  }
-  .env-body::before,.env-body::after{
-    content:"";position:absolute;top:0;bottom:0;width:52%;
-    background:linear-gradient(var(--env-face-2),var(--env-inner));
-  }
-  .env-body::before{left:0;clip-path:polygon(0 0,0 100%,100% 50%)}
-  .env-body::after{right:0;clip-path:polygon(100% 0,100% 100%,0 50%)}
-  .env-bottom{
-    position:absolute;left:0;right:0;bottom:0;height:58%;
-    background:linear-gradient(var(--env-face),var(--env-face-2));
-    clip-path:polygon(0 100%,100% 100%,50% 8%);
-    z-index:3;
-    box-shadow:0 -1px 0 rgba(255,255,255,.05);
-  }
-  .monogram{
-    position:absolute;z-index:4;left:0;right:0;bottom:16%;
-    text-align:center;font-family:'Cormorant Garamond',serif;
-    color:var(--gold);letter-spacing:4px;font-size:13px;font-weight:600;
-    text-transform:uppercase;opacity:.9;
+  @keyframes cfall{
+    0%{transform:translate(0,0) scale(.7);opacity:0}
+    10%{opacity:.85}
+    80%{opacity:.5}
+    100%{transform:translate(18px,240px) scale(1);opacity:0}
   }
 
-  .flap{
-    position:absolute;left:0;right:0;top:0;height:56%;
-    background:linear-gradient(var(--env-flap),var(--env-inner));
-    clip-path:polygon(0 0,100% 0,50% 100%);
-    transform-origin:top;
-    transition:transform .7s cubic-bezier(.6,.02,.2,.98);
-    z-index:6;
-    backface-visibility:hidden;
-  }
-  .flap::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.05),transparent 40%)}
-
-  .seal{
-    position:absolute;z-index:7;left:50%;top:46%;
-    width:84px;height:84px;transform:translate(-50%,-50%);
-    border-radius:50%;
-    background:radial-gradient(circle at 35% 30%,var(--wax-hi),var(--wax) 60%,#6e2419 100%);
-    box-shadow:0 6px 14px rgba(0,0,0,.45), inset 0 2px 6px rgba(255,255,255,.25), inset 0 -4px 8px rgba(0,0,0,.35);
-    display:flex;align-items:center;justify-content:center;
-    transition:transform .4s ease, opacity .4s ease;
-  }
-  .seal span{
-    font-family:'Cormorant Garamond',serif;font-weight:600;
-    font-size:14.5px;color:#f3d9a0;text-shadow:0 1px 1px rgba(0,0,0,.4);
-    letter-spacing:.5px;
-  }
-  .seal::before{
-    content:"";position:absolute;inset:6px;border-radius:50%;
-    border:1px dashed rgba(243,217,160,.5);
-  }
-
-  /* ---------- LETTER ----------
-     Lives in normal flow ABOVE the envelope, starts collapsed (hidden inside),
-     expands smoothly on open. No fixed % transforms → nothing "runs away". */
-  .letter-wrap{
-    position:relative;z-index:5;
-    max-height:0;
-    opacity:0;
-    overflow:hidden;
-    transform:translateY(60px);
-    transition:max-height 1.1s cubic-bezier(.2,.7,.2,1),
-               opacity .5s ease .15s,
-               transform .8s cubic-bezier(.2,.7,.2,1),
-               margin-bottom .8s cubic-bezier(.2,.7,.2,1);
-    margin-bottom:-14px; /* tuck slightly into the envelope mouth */
-  }
-  .letter{
-    position:relative;
-    background:linear-gradient(180deg,var(--paper),var(--paper-shade));
-    border-radius:8px 8px 4px 4px;
-    padding:34px 26px 30px;
-    box-shadow:0 -6px 30px -8px rgba(0,0,0,.4);
-  }
-  .letter::before{
-    content:"";position:absolute;inset:8px;border:1px solid rgba(42,39,35,.18);border-radius:3px;pointer-events:none;
-  }
-
-  /* OPEN STATE */
-  .stage.open .flap{transform:rotateX(180deg);z-index:1}
-  .stage.open .seal{opacity:0;transform:translate(-50%,-50%) scale(.4)}
-  .stage.open .envelope{cursor:default}
-  .stage.open .hint{opacity:0;pointer-events:none}
-  .stage.open .letter-wrap{
-    max-height:6000px; /* письмо может быть длинным — не ограничиваем */
-    opacity:1;
-    transform:translateY(0);
-    /* письмо ложится ПОВЕРХ конверта: перекрывает его, снизу выглядывает край */
-    margin-bottom:-52%;
-  }
-  .stage.open .letter{
-    box-shadow:0 18px 40px -12px rgba(0,0,0,.55);
-  }
-  .stage.open .envelope{pointer-events:none}
-
-  /* letter content */
-  .l-eyebrow{
-    text-align:center;font-family:'Manrope';font-weight:500;
-    font-size:11px;letter-spacing:3px;text-transform:uppercase;
-    color:var(--wax);margin-bottom:6px;
-  }
-  .l-year{
-    text-align:center;font-family:'Cormorant Garamond',serif;
-    font-size:64px;line-height:1;font-weight:600;color:var(--ink);
-  }
-  .l-sub{
-    text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;
-    font-size:20px;color:#6a5f4e;margin-top:2px;
-  }
-  .rule{
-    width:54px;height:1px;margin:18px auto;
-    background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  }
-  .l-body{
-    font-size:14.5px;line-height:1.6;color:#3a352d;text-align:center;
-    font-weight:300;overflow-wrap:break-word;
-  }
-  .l-body strong{font-weight:600;color:var(--ink)}
-  .l-msg p,.l-important p{overflow-wrap:break-word}
-
-  .details{margin:20px 0 4px;display:grid;gap:14px}
-  .row{
-    display:flex;gap:12px;align-items:flex-start;text-align:left;
-    padding-bottom:12px;border-bottom:1px dotted rgba(42,39,35,.18);
-    min-width:0;
-  }
-  .row>div{min-width:0}
-  .row .v{overflow-wrap:break-word}
-  .row:last-child{border-bottom:none;padding-bottom:0}
-  .row .ic{
-    flex:0 0 22px;font-family:'Cormorant Garamond',serif;font-size:20px;
-    color:var(--wax);line-height:1.2;text-align:center;
-  }
-  .row .k{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:#8a7f6c;font-weight:500}
-  .row .v{font-size:15px;color:var(--ink);font-weight:500;margin-top:1px}
-  .row .v small{display:block;font-weight:300;font-size:12.5px;color:#6a5f4e;margin-top:2px}
-
-  .l-foot{
-    margin-top:22px;text-align:center;
-    font-family:'Cormorant Garamond',serif;font-style:italic;
-    font-size:17px;color:#6a5f4e;
-  }
-
-  /* длинное письмо от организаторов */
-  .l-msg{margin-top:18px;text-align:left}
-  .l-msg p{
-    font-size:14.5px;line-height:1.65;color:#3a352d;font-weight:300;
-    margin-bottom:11px;
-  }
-  .l-msg p:last-child{margin-bottom:0}
-  .l-msg .greet{
-    font-family:'Cormorant Garamond',serif;font-style:italic;
-    font-size:19px;color:var(--ink);text-align:center;margin-bottom:14px;
-  }
-  /* галерея фото */
-  .gallery{
-    margin:16px 0 4px;
-  }
-  .gal-track{
-    display:flex;gap:8px;overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    padding-bottom:2px;
-  }
-  .gal-track::-webkit-scrollbar{display:none}
-  .gal-track img{
-    flex:0 0 84%;scroll-snap-align:center;
-    width:84%;aspect-ratio:4/3;object-fit:cover;
-    border-radius:8px;
-    border:2px solid var(--paper);
-    outline:1px solid rgba(201,162,75,.55);
-    outline-offset:-2px;
-    box-shadow:0 4px 12px rgba(42,39,35,.22);
-    filter:contrast(1.02) saturate(1.02);
-  }
-  .gal-dots{
-    display:flex;gap:6px;justify-content:center;margin-top:10px;
-  }
-  .gal-dots i{
-    width:6px;height:6px;border-radius:50%;
-    background:rgba(138,51,36,.28);transition:background .25s,transform .25s;
-  }
-  .gal-dots i.on{background:var(--wax);transform:scale(1.25)}
-
-  /* программа вечера */
-  .lp-title{
-    margin:18px 0 12px;text-align:center;
-    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
-    color:var(--wax);font-weight:500;
-  }
-  .l-prog{display:grid;gap:9px;text-align:left}
-  .lp-item{
-    display:flex;gap:10px;align-items:flex-start;
-    font-size:14.5px;line-height:1.55;color:#3a352d;font-weight:300;
-  }
-  .lp-item .b{
-    flex:0 0 16px;text-align:center;
-    font-family:'Cormorant Garamond',serif;font-size:15px;
-    color:var(--gold);line-height:1.4;
-  }
-  .lp-item strong{font-weight:600;color:var(--ink)}
-  .lp-item em{
-    font-family:'Cormorant Garamond',serif;font-style:italic;
-    font-size:15.5px;color:#6a5f4e;
-  }
-
-  .l-important{
-    margin-top:16px;padding:14px 16px;text-align:left;
-    border:1px solid rgba(138,51,36,.35);
-    background:rgba(138,51,36,.05);
-    border-radius:6px;
-  }
-  .l-important .li-title{
-    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
-    color:var(--wax);font-weight:500;margin-bottom:8px;
-  }
-  .l-important p{
-    font-size:14.5px;line-height:1.6;color:#3a352d;font-weight:300;
-    margin-bottom:9px;
-  }
-  .l-important p:last-child{margin-bottom:0}
-  .l-important strong{font-weight:600;color:var(--wax)}
-
-  /* ---------- ИМЕННОЕ ПРИГЛАШЕНИЕ ---------- */
-  .namebox{
-    margin-top:26px;text-align:center;
-    transition:opacity .4s ease;
-  }
-  .stage.open .namebox{display:none}
-  .nb-hint{
-    font-family:'Cormorant Garamond',serif;font-style:italic;
-    font-size:16px;color:var(--gold-soft);opacity:.75;margin-bottom:10px;
-  }
-  .nb-row{display:flex;gap:8px;justify-content:center}
-  .namebox input{
-    width:min(230px,60vw);
-    background:rgba(246,241,231,.06);
-    border:1px solid rgba(201,162,75,.45);
-    border-radius:6px;
-    padding:10px 14px;
-    font-family:'Manrope',sans-serif;font-size:14px;
-    color:var(--paper);text-align:center;outline:none;
-  }
-  .namebox input::placeholder{color:rgba(217,189,120,.55)}
-  .namebox input:focus{border-color:var(--gold)}
-  .namebox button{
-    background:linear-gradient(160deg,var(--wax-hi),var(--wax));
-    color:#f3d9a0;border:none;border-radius:6px;
-    padding:10px 16px;font-family:'Manrope',sans-serif;
-    font-size:13px;font-weight:500;cursor:pointer;
-    letter-spacing:.3px;
-  }
-  .namebox button:active{transform:scale(.97)}
-  .nb-err{
-    margin-top:10px;font-family:'Cormorant Garamond',serif;font-style:italic;
-    font-size:15px;color:var(--gold-soft);min-height:20px;
-  }
-
-  .l-photo{text-align:center;margin-bottom:16px}
-  .l-photo img{
-    width:110px;height:138px;object-fit:cover;
-    border-radius:55px/69px;
-    border:3px solid var(--paper);
-    outline:1px solid rgba(201,162,75,.7);
-    outline-offset:3px;
-    box-shadow:0 4px 14px rgba(42,39,35,.28);
-    filter:contrast(1.03) brightness(1.02) saturate(1.03);
-  }
-
-  @media (max-width:380px){
-    .l-year{font-size:54px}
-    .letter{padding:30px 20px 26px}
-  }
   @media (prefers-reduced-motion:reduce){
-    .dust{display:none}
-    .letter-wrap{transition:opacity .3s ease, max-height .3s ease}
-    .flap,.seal{transition:none}
+    .letter-wrap{transition:opacity .3s ease,max-height .3s ease}
+    .c-hint{animation:none}
+    .dust,.cdust{display:none}
   }
 </style>
 </head>
 <body>
-
 <div class="dust" id="dust"></div>
-
 <div class="stage" id="stage">
 
-  <!-- LETTER (flows above the envelope) -->
   <div class="letter-wrap">
     <div class="letter">
-      <div class="l-photo" id="lphoto" hidden><img id="lphotoimg" alt="" loading="lazy"></div>
-      <div class="l-eyebrow" id="leyebrow">Приглашение</div>
-      <div class="l-year">2006</div>
-      <div class="l-sub">20 лет спустя</div>
-      <div class="rule"></div>
-      <p class="l-body">
-        Прошло <strong>20 лет</strong>, как мы вышли из школьных стен.
-        Пришло время собраться снова — вспомнить, посмеяться
-        и увидеть, какими мы стали.
-      </p>
+      <div class="l-eye">Приглашаем на встречу</div>
+      <div class="l-big">20 ЛЕТ</div>
+      <div class="l-scr">со дня нашего выпуска</div>
+      <div class="l-hrt">♥</div>
+      <div class="l-body">Прошло <strong>20 лет</strong>, как мы вышли из школьных стен. Пришло время собраться снова — вспомнить, посмеяться и увидеть, какими мы стали.</div>
 
-      <div class="details">
-        <div class="row">
-          <div class="ic">✦</div>
-          <div><div class="k">Дата</div><div class="v">29 августа 2026 · суббота</div></div>
-        </div>
-        <div class="row">
-          <div class="ic">✦</div>
-          <div><div class="k">Время</div><div class="v">15:00</div></div>
-        </div>
-        <div class="row">
-          <div class="ic">✦</div>
-          <div><div class="k">Место</div><div class="v">Новосибирск, Матвеевка<br>ул. Тальниковая, д. 29</div></div>
-        </div>
-        <div class="row">
-          <div class="ic">✦</div>
-          <div><div class="k">Программа</div><div class="v">Праздничная программа и банкет</div></div>
-        </div>
-        <div class="row">
-          <div class="ic">✦</div>
-          <div><div class="k">Дресс-код</div><div class="v">Casual · Вечерний</div></div>
-        </div>
-        <div class="row">
-          <div class="ic">✦</div>
-          <div><div class="k">По всем вопросам</div><div class="v">«А» класс — Краснова<br>«Б» класс — Языков</div></div>
-        </div>
+      <div class="rows">
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg></div><div><div class="k">Дата</div><div class="v">29 августа 2026 · суббота</div></div></div>
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><div class="k">Время</div><div class="v">15:00</div></div></div>
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s7-6 7-12a7 7 0 1 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><div class="k">Место</div><div class="v">Новосибирск, Матвеевка<small>ул. Тальниковая, д. 29</small></div></div></div>
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><path d="M8 3h8l-1 7a3 3 0 0 1-6 0z"/><path d="M12 13v6M8 21h8"/></svg></div><div><div class="k">Программа</div><div class="v">Праздничная программа и банкет</div></div></div>
+        <div class="r"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 7a2 2 0 1 0-1.4-3.4M12 7v3M4 20l8-6 8 6z"/></svg></div><div><div class="k">Дресс-код</div><div class="v">Casual · Вечерний</div></div></div>
       </div>
 
       <div class="rule"></div>
 
-      <div class="l-msg">
-        <p class="greet">Дорогие одноклассники!</p>
+      <div class="greet">Дорогие одноклассники!</div>
+      <div class="msg">
         <p>Мы забронировали большой коттедж («Панорама») на берегу, в котором есть всё нужное для нашего мероприятия 🤗</p>
+      </div>
 
-        <div class="gallery" data-gallery>
-          <div class="gal-track">
-            <img src="img/cottage/1.jpg" alt="Коттедж «Панорама»" loading="lazy">
-            <img src="img/cottage/2.jpg" alt="Коттедж «Панорама»" loading="lazy">
-            <img src="img/cottage/3.jpg" alt="Коттедж «Панорама»" loading="lazy">
-            <img src="img/cottage/4.jpg" alt="Коттедж «Панорама»" loading="lazy">
-            <img src="img/cottage/5.jpg" alt="Коттедж «Панорама»" loading="lazy">
-          </div>
-          <div class="gal-dots"></div>
+      <div class="gallery" data-gallery>
+        <div class="gal-track">
+          <img src="img/cottage/1.jpg" alt="Коттедж «Панорама»" loading="lazy">
+          <img src="img/cottage/2.jpg" alt="Коттедж «Панорама»" loading="lazy">
+          <img src="img/cottage/3.jpg" alt="Коттедж «Панорама»" loading="lazy">
+          <img src="img/cottage/4.jpg" alt="Коттедж «Панорама»" loading="lazy">
+          <img src="img/cottage/5.jpg" alt="Коттедж «Панорама»" loading="lazy">
         </div>
-        <div class="lp-title">✦ В программе вечера ✦</div>
-        <div class="l-prog">
-          <div class="lp-item"><span class="b">✦</span><span><strong>Трансфер</strong> — <em>организованный, для тех, кто готов уехать совместно</em></span></div>
-          <div class="lp-item"><span class="b">✦</span><span><strong>Банкет</strong> — <em>вкуснейший, с предварительными закусками</em></span></div>
-          <div class="lp-item"><span class="b">✦</span><span><strong>Фотограф</strong> — <em>чтобы не забыть эту встречу</em></span></div>
-          <div class="lp-item"><span class="b">✦</span><span><strong>Шоу «Два дивана»</strong> — <em>приглашённые гости вечера</em></span></div>
-          <div class="gallery" data-gallery style="margin:10px 0 4px">
-            <div class="gal-track">
-              <img src="img/show/1.jpg" alt="Шоу «Два дивана»" loading="lazy">
-              <img src="img/show/2.jpg" alt="Шоу «Два дивана»" loading="lazy">
-              <img src="img/show/3.jpg" alt="Шоу «Два дивана»" loading="lazy">
-            </div>
-            <div class="gal-dots"></div>
-          </div>
-          <div class="lp-item"><span class="b">✦</span><span><strong>Кальян-бар</strong> — <em>подымим</em></span></div>
-          <div class="lp-item"><span class="b">✦</span><span><strong>DJ</strong> — <em>посмотрим, кто переборол свой страх танцев</em></span></div>
-          <div class="lp-item"><span class="b">✦</span><span><strong>Салют</strong> — <em>в завершение вечера!</em></span></div>
+        <div class="gal-dots"></div>
+      </div>
+
+      <div class="lp-title">✦ В программе вечера ✦</div>
+      <div class="l-prog">
+        <div class="lp-item"><span class="b">✦</span><span><strong>Трансфер</strong> — организованный, для тех, кто готов уехать совместно</span></div>
+        <div class="lp-item"><span class="b">✦</span><span><strong>Банкет</strong> — вкуснейший, с предварительными закусками</span></div>
+        <div class="lp-item"><span class="b">✦</span><span><strong>Фотограф</strong> — <em>чтобы не забыть эту встречу</em></span></div>
+        <div class="lp-item"><span class="b">✦</span><span><strong>Шоу «Два дивана»</strong> — <em>приглашённые гости вечера</em></span></div>
+      </div>
+
+      <div class="gallery" data-gallery style="margin-top:10px">
+        <div class="gal-track">
+          <img src="img/show/1.jpg" alt="Шоу «Два дивана»" loading="lazy">
+          <img src="img/show/2.jpg" alt="Шоу «Два дивана»" loading="lazy">
+          <img src="img/show/3.jpg" alt="Шоу «Два дивана»" loading="lazy">
         </div>
-        <p style="margin-top:14px">Кто не может надолго — планируйте хотя бы 3 часа ♥️ Кто готов встречать рассвет — коттедж в нашем распоряжении до 12:00 следующего дня 😉</p>
+        <div class="gal-dots"></div>
+      </div>
+
+      <div class="l-prog" style="margin-top:10px">
+        <div class="lp-item"><span class="b">✦</span><span><strong>Кальян-бар</strong> — <em>подымим</em></span></div>
+        <div class="lp-item"><span class="b">✦</span><span><strong>DJ</strong> — <em>посмотрим, кто переборол свой страх танцев</em></span></div>
+        <div class="lp-item"><span class="b">✦</span><span><strong>Салют</strong> — в завершение вечера!</span></div>
+      </div>
+
+      <div class="msg" style="margin-top:14px">
+        <p>Кто не может надолго — планируйте хотя бы 3 часа ♥️ Кто готов встречать рассвет — коттедж в нашем распоряжении до 12:00 следующего дня 😉</p>
       </div>
 
       <div class="l-important">
         <div class="li-title">❗ Внимание, тут сейчас будет важно</div>
-        <p>Для <span id="pricewho">вас</span> стоимость мероприятия всего <strong>7000 ₽</strong>. В эту сумму включены только основные позиции — еда, алкоголь, обслуживание и транспортные расходы.</p>
+        <p>Для вас стоимость мероприятия всего <strong>7000 ₽</strong>. В эту сумму включены только основные позиции — еда, алкоголь, обслуживание и транспортные расходы.</p>
         <p>Дедлайн по сдаче — <strong>31 июля</strong>. Если у кого-то ну совсем никак не получается до этой даты, но очень хочется — напишите в личку 🙏 Что-нибудь придумаем обязательно!</p>
       </div>
 
-      <div class="l-foot" id="lfoot">Ждём всех!</div>
+      <div class="l-foot-t">По всем вопросам</div>
+      <div class="l-foot-v">«А» класс — Краснова<br>«Б» класс — Языков</div>
+
+      <div class="l-fin">Ждём всех! ♥</div>
     </div>
   </div>
 
-  <!-- ENVELOPE -->
-  <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Открыть приглашение">
-    <div class="hint">нажмите, чтобы открыть</div>
-    <div class="env-body">
-      <div class="env-bottom"></div>
-      <div class="monogram">Выпуск 2006</div>
-    </div>
-    <div class="flap"></div>
-    <div class="seal" id="seal"><span>Пересвет</span></div>
-  </div>
-
-  <!-- именное приглашение -->
-  <div class="namebox" id="namebox">
-    <div class="nb-hint">получить именное приглашение</div>
-    <div class="nb-row">
-      <input id="nameinput" placeholder="Фамилия и имя" autocomplete="off" autocapitalize="words">
-      <button id="namebtn" type="button">Найти</button>
-    </div>
-    <div class="nb-err" id="nberr"></div>
+  <div class="cover" id="cover" role="button" tabindex="0" aria-label="Открыть приглашение">
+    <div class="c-hint">нажмите, чтобы открыть <span class="hrt">♥</span></div>
+    <div class="seal-txt">Пересвет</div>
+    <div class="cdust" id="cdust"></div>
   </div>
 
 </div>
 
 <script>
-  (function(){
-    const d=document.getElementById('dust');
-    for(let i=0;i<26;i++){
-      const s=document.createElement('span');
-      s.style.left=Math.random()*100+'%';
-      s.style.animationDuration=(6+Math.random()*8)+'s';
-      s.style.animationDelay=(-Math.random()*10)+'s';
-      const sc=.5+Math.random()*1.3;
-      s.style.transform='scale('+sc+')';
-      d.appendChild(s);
-    }
-  })();
-
-  // ---------- Галереи фото (точки-индикаторы + свайп) ----------
+  // галереи: точки + свайп
   document.querySelectorAll('[data-gallery]').forEach(function(g){
     const track=g.querySelector('.gal-track');
     const dotsBox=g.querySelector('.gal-dots');
@@ -517,9 +224,7 @@
     imgs.forEach(function(_,i){
       const d=document.createElement('i');
       if(i===0)d.className='on';
-      d.addEventListener('click',function(){
-        imgs[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
-      });
+      d.addEventListener('click',function(){imgs[i].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});});
       dotsBox.appendChild(d);
     });
     const dots=dotsBox.querySelectorAll('i');
@@ -530,157 +235,56 @@
         raf=null;
         const c=track.scrollLeft+track.clientWidth/2;
         let best=0,bd=1e9;
-        imgs.forEach(function(im,i){
-          const mid=im.offsetLeft+im.clientWidth/2;
-          const dd=Math.abs(mid-c);
-          if(dd<bd){bd=dd;best=i;}
-        });
+        imgs.forEach(function(im,i){const m=im.offsetLeft+im.clientWidth/2;const dd=Math.abs(m-c);if(dd<bd){bd=dd;best=i;}});
         dots.forEach(function(d,i){d.classList.toggle('on',i===best);});
       });
     });
   });
 
+  // пылинки фона
+  (function(){
+    const d=document.getElementById('dust');
+    for(let i=0;i<26;i++){
+      const s=document.createElement('span');
+      s.style.left=Math.random()*100+'%';
+      s.style.animationDuration=(6+Math.random()*8)+'s';
+      s.style.animationDelay=(-Math.random()*10)+'s';
+      s.style.transform='scale('+(0.5+Math.random()*1.3)+')';
+      d.appendChild(s);
+    }
+  })();
+  // пыльца с веточек на конверте: верхний левый и нижний правый кусты
+  (function(){
+    const c=document.getElementById('cdust');
+    const zones=[
+      {x0:2,x1:36,y0:2,y1:16,n:12},    // верхняя левая ветка
+      {x0:66,x1:96,y0:78,y1:90,n:6},   // нижняя правая ветка
+    ];
+    zones.forEach(function(z){
+      for(let i=0;i<z.n;i++){
+        const s=document.createElement('span');
+        const sz=1.6+Math.random()*2.6;
+        s.style.width=s.style.height=sz+'px';
+        s.style.left=(z.x0+Math.random()*(z.x1-z.x0))+'%';
+        s.style.top=(z.y0+Math.random()*(z.y1-z.y0))+'%';
+        s.style.animationDuration=(5+Math.random()*6)+'s';
+        s.style.animationDelay=(-Math.random()*8)+'s';
+        c.appendChild(s);
+      }
+    });
+  })();
+
   const stage=document.getElementById('stage');
-  const env=document.getElementById('envelope');
+  const cover=document.getElementById('cover');
   function open(){
-    if(stage.classList.contains('open')) return;
+    if(stage.classList.contains('open'))return;
     stage.classList.add('open');
-    document.body.classList.add('opened');
-    // gently bring the top of the letter into view after it expands
     setTimeout(function(){
       window.scrollTo({top:0,behavior:'smooth'});
-    },200);
+    },250);
   }
-  env.addEventListener('click',open);
-  env.addEventListener('keydown',function(e){
-    if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}
-  });
-
-  // ---------- Именные приглашения ----------
-  // Имён на странице нет: ключ — sha256 от нормализованных «фамилия имя»,
-  // фото лежат под случайными кодами. n — позиция имени в отсортированных словах.
-  const PERSONAL = {
-    '45064caf1031997457072d8bb51c5009f3907bf364180a57bf651d05b2416bee':{img:'p/45064caf1031.jpg',name:'Юлия'},
-    '85ab88d54813154b616b5f2a788400915115007032ea28798cc966c572608d5a':{img:'p/45064caf1031.jpg',name:'Юлия'},
-    '8d413d3c7e1040fdc9713fb363d9e2bca618940ee2f673a4b31751a75393c656':{img:'p/45064caf1031.jpg',name:'Юлия'},
-    '07577514d5cf81272cba19841f36d90e596e36549369075f7ec7ea04cf03fa33':{img:'p/45064caf1031.jpg',name:'Юлия'},
-    'b0f689b87cf40e2c3cc5d4a75cf6ab0c8736835dd7e20ffffda9c6c97bd0a830':{img:'p/b0f689b87cf4.jpg',name:'Юлия'},
-    '767c3d2f4d1bc5bf270feb3b111d7f5be0fdd4160cb9d6408a82e631d7c18e51':{img:'p/b0f689b87cf4.jpg',name:'Юлия'},
-    '7fa8360df248c6627e069a5afbed08b91db2ffd7cac5c4831e60f239ed824e4d':{img:'p/b0f689b87cf4.jpg',name:'Юлия'},
-    '973e6074daeebf5b97d1680b2444dce78d379e91805a0f81f56daadb0e8415dc':{img:'p/b0f689b87cf4.jpg',name:'Юлия'},
-    '80df3825d786ffd1263de8cc4fe75929b2bb3e6ed2ddacc0303706f564d2f4b7':{img:'p/80df3825d786.jpg',name:'Анна'},
-    '2493a23ca6bbc2305059e64b249485b0ec9ca8281b23941a5ae17b826ca15f4b':{img:'p/80df3825d786.jpg',name:'Анна'},
-    '07cad77d77edd88c5a4c18db07e7bbf1154d48947f8523127df9e20ce3f3708f':{img:'p/80df3825d786.jpg',name:'Анна'},
-    'f5b39f8e0c8efb0a838d1621baa40d4292224e9c478d61e091c549f97620987f':{img:'p/80df3825d786.jpg',name:'Анна'},
-    '0c14410652d26bc771a101585bc2855cc53b6c2c7b2de44cbd7081dd25408180':{img:'p/80df3825d786.jpg',name:'Анна'},
-    'ae4d22d01883e6c1be434c44b5a2a83b677499b90e99bb03eb8f6bcaf69e99f1':{img:'p/ae4d22d01883.jpg',name:'Александра'},
-    '03b969ae580cf3fca46475b0e18f30b2d5afbc6f1fb636438db7a67220738755':{img:'p/ae4d22d01883.jpg',name:'Александра'},
-    '20ba0c52c33ec8ea012564dfc07226b29b9b8d2fed588c7fca1c39033145611d':{img:'p/ae4d22d01883.jpg',name:'Александра'},
-    '1db9cded88ecf5424d05721d998be53d8552e3886a4b748bdaa35efcffc3eb4d':{img:'p/ae4d22d01883.jpg',name:'Александра'},
-    '939ae23e27f349d41cbd0d5d164eac476ff765b061ce585531c9af1ac120f19b':{img:'p/ae4d22d01883.jpg',name:'Александра'},
-    '0cb3c9f2ca22da43da17de4b29304670c44285f7d849733c7939f694db734a3a':{img:'p/ae4d22d01883.jpg',name:'Александра'},
-    '433ec52440e9738cc4bbb2483a446c4fd6a03e16aaf173ad0be463084f346cc5':{img:'p/433ec52440e9.jpg',name:'Дмитрий'},
-    '04fcfcac5bad31003ff5af4d6cdf7ae3f4a2141921ce5a2c20eae53c9b98cb92':{img:'p/433ec52440e9.jpg',name:'Дмитрий'},
-    '5a2f35d6ba5b9649d8f4fdb6576ac4729f065038185abd10323b8a40f0403ee2':{img:'p/433ec52440e9.jpg',name:'Дмитрий'},
-    'd9cb4135948485fdb1eb75682ea551d0d626062131e4b9997c851c8dc9d8e0c9':{img:'p/433ec52440e9.jpg',name:'Дмитрий'},
-    '01e774701edc4e3e44f153c4ecf2bd5bf4f69d95260fd4d72006f9638cf29c1b':{img:'p/433ec52440e9.jpg',name:'Дмитрий'},
-    'db500e27ecf7c66447861e10835bad8512c4095ddf012844d9ee6dcc16c07c5e':{img:'p/db500e27ecf7.jpg',name:'Екатерина'},
-    '355473b6d23405f4f2a879045cefbf3501c7ccb4f360871f16ce592adee33670':{img:'p/db500e27ecf7.jpg',name:'Екатерина'},
-    '33e84311547bb2ab9ba2751514ab77ad4768f33c0bae9f523d4af50625bb733f':{img:'p/db500e27ecf7.jpg',name:'Екатерина'},
-    '4bc4bc665bce5aaf332c6ed44a1a23d69640484840a6cdc27addf526fd573565':{img:'p/db500e27ecf7.jpg',name:'Екатерина'},
-    '380090f88a2f8b8ae0cffb09de7cf535179b9f78587f876a1df05bc89de3b200':{img:'p/db500e27ecf7.jpg',name:'Екатерина'},
-    '9e07addfb50b57290eaef7ccc39cdfac00938c52f9d5eebf4407052dc3f7b008':{img:'p/9e07addfb50b.jpg',name:'Елена'},
-    '01d584898c8b2bfea18d3e0d64e82aa49e3ebefb73a9c7c6183fd3a159f5236f':{img:'p/9e07addfb50b.jpg',name:'Елена'},
-    '80aab51c94e1a9ec383d75d314566ae40c7a369c4a131ecf7f956c72589514d8':{img:'p/9e07addfb50b.jpg',name:'Елена'},
-    '24ac6f0c250b2b1184b9bd5c80654a4afddd16f385f60ae94f0765a7c58b2e2d':{img:'p/9e07addfb50b.jpg',name:'Елена'},
-    'ab4950cbaf737114072148a4147a56fca27dba3412958b62404ea0f08afe3764':{img:'p/ab4950cbaf73.jpg',name:'Екатерина'},
-    'dc125502c2be4f25d92ac447913397fc532bc5f9e75ce76c09e3222534adbec9':{img:'p/ab4950cbaf73.jpg',name:'Екатерина'},
-    'cbabe33345e968298fe8a52b834fb8683ac9c9522580e750758baea1617204b7':{img:'p/ab4950cbaf73.jpg',name:'Екатерина'},
-    '0e00b4204f32dc3a6dfc9b5f449489049acf819d5559314841b796ba653db316':{img:'p/ab4950cbaf73.jpg',name:'Екатерина'},
-    'fdf14ed53f50ad3cc5c19bc202797727378246a4a0654d46d4f903ffd82157d1':{img:'p/ab4950cbaf73.jpg',name:'Екатерина'},
-    '04688f0ab6dfa1b28aa64a33babeef119420860ef702be9c49e60fbaaf36905e':{img:'p/04688f0ab6df.jpg',name:'Наталья'},
-    '0e20ccc9329752e9cbfa3aabc82cd3f67bcfecf7d1fb61ef330585a62e22fca1':{img:'p/04688f0ab6df.jpg',name:'Наталья'},
-    '37252f005d766755b00fad1ebe69e82716bf2eb7650b5deaf6e25cea9608aac5':{img:'p/04688f0ab6df.jpg',name:'Наталья'},
-    '82b8fbcddc1abfa11bae59133e510928864ef94e249db3dbd5e6bcea78ac7561':{img:'p/04688f0ab6df.jpg',name:'Наталья'},
-    '3791e085afa8002e175a1df1834ae1fdfbdd8f7dcef00a6adc862261c78175c9':{img:'p/04688f0ab6df.jpg',name:'Наталья'},
-    '15badfa47df03c0694987fb2069695dcdc5b57cb2807c869654a146be16c9b4d':{img:'p/15badfa47df0.jpg',name:'Наталья'},
-    'd249f7d6951701d91769cce655f5b92378320884b05a9cbaf7e99c4d4a8ed67f':{img:'p/15badfa47df0.jpg',name:'Наталья'},
-    'f3bc50a146c6f750ffa08695cb323206eddaa8ed881c9f99c54ffe647ad58e8b':{img:'p/15badfa47df0.jpg',name:'Наталья'},
-    'fa5e36bc374136d42f659f83e0e59b49752a7a94178d8460b71f12271e221e42':{img:'p/15badfa47df0.jpg',name:'Наталья'},
-    'd421cb4eb5a607f6fc97dab3c670f8ea730bbb69d76ba309a7d0c80539a673a5':{img:'p/15badfa47df0.jpg',name:'Наталья'},
-    'e3763155a6670527fa8a566b3335ca859bc990ff42bfee155768fc184bf34b1d':{img:'p/e3763155a667.jpg',name:'Алексей'},
-    '83e4eb06299f8e463b42f321cb71f9392e436a2635e10af53f8b18f3667d3188':{img:'p/e3763155a667.jpg',name:'Алексей'},
-    '7e8678dfb064b7592d8919801975ea4d89c5a2f44b7b8c60ecc5efa24cd29ab9':{img:'p/e3763155a667.jpg',name:'Алексей'},
-    'c95c14dde2eb3e6f997fc64eb5d11f4d75db1908dd272fd6f93d3eb63711a6d6':{img:'p/e3763155a667.jpg',name:'Алексей'},
-    '615c86d81ffd3e4b551bcc32fcd843a3d9f85e32aee97ca8a959de59aa21e7d6':{img:'p/e3763155a667.jpg',name:'Алексей'},
-    'e1ee84bca0703fb7b4503ea2808b26c772122b8ec34bd141cb1cb02ac0654298':{img:'p/e1ee84bca070.jpg',name:'Антон'},
-    '0ff6802e4da8323839a96bb57541e72f0f81d32709e03fec4c5ad33ad5e1256d':{img:'p/e1ee84bca070.jpg',name:'Антон'},
-    'b81cccc2a4e7adcb96b1e7b5866855a3130f4cface7019a8d043f61778bb2079':{img:'p/e1ee84bca070.jpg',name:'Антон'},
-    'a93d1c3be1d788690a63396073acbd5e900613cea91f55eff05d6dcbd12d2c71':{img:'p/a93d1c3be1d7.jpg',name:'Елена'},
-    'f19f4c01273afada9e97a706366221cf5682ab70e7b50ee67c0b0648d5b88b9e':{img:'p/a93d1c3be1d7.jpg',name:'Елена'},
-    '4a9b22fb5372a3f04360f279b5072ee9842b52cddf8fe2f4c76a465a7d37a8d7':{img:'p/a93d1c3be1d7.jpg',name:'Елена'},
-    '768a7fe3a5b8a1b65cd88c9552fab1253dc10804adc0dea6e6e0cf35e65feabb':{img:'p/a93d1c3be1d7.jpg',name:'Елена'},
-    '3ada2a860971ee9976a595864faf9f3961105f8cb89b8c24ee815fb6ae6d9390':{img:'p/3ada2a860971.jpg',name:'Оля'},
-    '1fea2f2319d2cbf032725328adb1f935f384536d283d269a0f4f0f1a9470ebc3':{img:'p/3ada2a860971.jpg',name:'Оля'},
-    '67ac1618fa4b3a3f9aa0885c916c5f6083b897262cc53011018ec6f6bee9b0f3':{img:'p/3ada2a860971.jpg',name:'Оля'},
-    '31e6c179e6eaac36d210da495b5a071dffb144597c057caad82705c16602446b':{img:'p/3ada2a860971.jpg',name:'Оля'},
-    '407cf0c57db439c107c083516326f87732633431e6b1aa417986e87b56f1ab74':{img:'p/407cf0c57db4.jpg',name:'Ирина'},
-    '64412967f02ffcd29d4921c86d5ff00eab935c053ab8c067fdf9068c33da5216':{img:'p/407cf0c57db4.jpg',name:'Ирина'},
-    '7d79db0759ea93dc6af706939945f99bea429b342ad72b00718382e18c4dedd7':{img:'p/407cf0c57db4.jpg',name:'Ирина'},
-    'eac7cd26756a0193b5c2314f14df581025d69759323cb896f2a3a5782b7dc173':{img:'p/407cf0c57db4.jpg',name:'Ирина'},
-    '48f8cd1c4bbd83d4f5ed9ebf5033752672304037754ca1908198d54b8f00fb17':{img:'p/407cf0c57db4.jpg',name:'Ирина'},
-    'efaf936a64f52be456ff737571f6d5183b4d37ab926c1e93da67b3265c930fb1':{img:'p/efaf936a64f5.jpg',name:'Сергей'},
-    '27fabf5ead5938b2397ac2d2fa343722216836109a669319893985c5dee968cc':{img:'p/efaf936a64f5.jpg',name:'Сергей'},
-    'fbd824c5fb3f60301e890102ca86e9257bb54978de68b802c861e1887d0e4772':{img:'p/efaf936a64f5.jpg',name:'Сергей'},
-    '48d8056fb7b5078b7b3ee78f5c6ca54d85a6b2cf5312cdef8d2af72d2fd97525':{img:'p/efaf936a64f5.jpg',name:'Сергей'},
-    'dd7a6a785e6eb4d6ae9bb865a37a72d85b1b137415f8f10c81d676c2d9c959d3':{img:'p/dd7a6a785e6e.jpg',name:'Настя'},
-    '736695a3d940cf826a70f3fdbde341933079d77602363076f52eab3740fcc496':{img:'p/dd7a6a785e6e.jpg',name:'Настя'},
-    '303db83ab5dc282fa67baddcfb3254e98624687c14cdb9ae21dd983eba23debb':{img:'p/dd7a6a785e6e.jpg',name:'Настя'},
-    '903418f750414dc8be4a4b41c2eb538f89050b2c87962d949276eb6933ffe89f':{img:'p/903418f75041.jpg',name:'Дмитрий'},
-    '29650a1ead49ee11ccc925d3af421052846ad189edb928f1181ab601786563f8':{img:'p/903418f75041.jpg',name:'Дмитрий'},
-    '67e45d5fa14d73bab06046e4911cdf351152d58a9878a48473c29dc461e0fa9c':{img:'p/903418f75041.jpg',name:'Дмитрий'},
-    '6384050c1fd1bd9e469318f7ddbf49b27eca4de25db4c9d513683652cbbb0fef':{img:'p/903418f75041.jpg',name:'Дмитрий'},
-    '7e7431bbff7eddcf6d0c9c95a1c5a3e9a7c61799117fc6c62372cac8c2014b6b':{img:'p/903418f75041.jpg',name:'Дмитрий'},
-    'e46a3ebc5e42e253dfa4e9bb4c8d74b38799b56a742a6e3b1ae15bdebfce8c02':{img:'p/ecfe19c220.jpg',name:'Ирина'},
-    '67a156812ef05843da01922341a5e2e1f3f802ca24797d9f588ddbce47393f05':{img:'p/ecfe19c220.jpg',name:'Ирина'},
-    '70d40fe270942f851ccaec60f60d3ffa6b3542e92e049f4fb24b3be8fb319058':{img:'p/ecfe19c220.jpg',name:'Ирина'},
-    '96aca77d8737b61c25fef8a4af8616f525d5bcfd286cbf75c7e913a9ecd3a7a3':{img:'p/ecfe19c220.jpg',name:'Ирина'},
-    'ca867bdf65180963cf066f855b967fcb24389930c53f9ca8db3d747a75d7fc87':{img:'p/ecfe19c220.jpg',name:'Ирина'}
-  };
-  const nameInput=document.getElementById('nameinput');
-  const nbErr=document.getElementById('nberr');
-
-  function normName(s){
-    return s.toLowerCase().replace(/ё/g,'е').trim().split(/\s+/).sort().join(' ');
-  }
-  async function sha256hex(s){
-    const buf=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
-    return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
-  }
-  async function findPersonal(){
-    const raw=nameInput.value;
-    if(!raw.trim()){nbErr.textContent='Введи фамилию и имя';return;}
-    const norm=normName(raw);
-    const hit=PERSONAL[await sha256hex(norm)];
-    if(!hit){
-      nbErr.textContent='Не нашли такое имя — проверь написание';
-      return;
-    }
-    nbErr.textContent='';
-    const pretty=hit.name;
-    const ph=document.getElementById('lphoto');
-    document.getElementById('lphotoimg').src=hit.img;
-    ph.hidden=false;
-    document.getElementById('leyebrow').textContent='Приглашение для тебя';
-    document.getElementById('lfoot').textContent='Ждём именно тебя, '+pretty;
-    document.getElementById('pricewho').textContent='тебя';
-    open();
-  }
-  document.getElementById('namebtn').addEventListener('click',findPersonal);
-  nameInput.addEventListener('keydown',function(e){
-    if(e.key==='Enter'){e.preventDefault();findPersonal();}
-  });
-
+  cover.addEventListener('click',open);
+  cover.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
 </script>
 </body>
 </html>
