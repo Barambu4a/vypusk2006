@@ -17,7 +17,7 @@
 
   /* ===== ОБЛОЖКА ===== */
   .cover{position:relative;width:100%;aspect-ratio:640/910;border-radius:14px;overflow:hidden;cursor:pointer;
-         background:url('img/design/cover3.jpg') center/cover no-repeat;
+         background:url('img/design/cover4.jpg') center/cover no-repeat;
          box-shadow:0 24px 50px -18px rgba(0,0,0,.75);transition:transform .4s ease}
   .cover:active{transform:scale(.99)}
   .c-hint{position:absolute;left:0;right:0;top:13%;text-align:center;
@@ -25,6 +25,11 @@
           font-size:12.5px;color:var(--gold-soft);animation:breathe 2.6s ease-in-out infinite;pointer-events:none}
   .c-hint .hrt{color:#c94d72}
   @keyframes breathe{0%,100%{opacity:.5}50%{opacity:1}}
+  .seal-txt{position:absolute;left:50%;top:51.4%;transform:translate(-50%,-50%);
+    font-family:'Cormorant Garamond',serif;font-weight:600;
+    font-size:min(23px,calc((100vw - 28px) * 0.0545));
+    color:#dfb473;letter-spacing:1px;pointer-events:none;
+    text-shadow:0 1px 2px rgba(60,10,25,.55)}
 
   /* ===== ПИСЬМО ===== */
   .letter-wrap{position:relative;z-index:5;max-height:0;opacity:0;overflow:hidden;transform:translateY(60px);
@@ -173,6 +178,7 @@
 
   <div class="cover" id="cover" role="button" tabindex="0" aria-label="Открыть приглашение">
     <div class="c-hint">нажмите, чтобы открыть <span class="hrt">♥</span></div>
+    <div class="seal-txt">Пересвет</div>
   </div>
 
 </div>
