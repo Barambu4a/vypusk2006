@@ -16,32 +16,35 @@
   .stage{position:relative;width:min(420px,calc(100vw - 28px));max-width:100%}
 
   /* ===== ОБЛОЖКА ===== */
-  .cover{position:relative;width:100%;aspect-ratio:640/1040;border-radius:14px;overflow:hidden;cursor:pointer;
-         background:url('img/design/cover2.jpg') center/cover no-repeat;
+  .cover{position:relative;width:100%;aspect-ratio:640/910;border-radius:14px;overflow:hidden;cursor:pointer;
+         background:url('img/design/cover3.jpg') center/cover no-repeat;
          box-shadow:0 24px 50px -18px rgba(0,0,0,.75);transition:transform .4s ease}
   .cover:active{transform:scale(.99)}
-  .c-hint{position:absolute;left:0;right:0;top:20%;text-align:center;
+  .c-hint{position:absolute;left:0;right:0;top:13%;text-align:center;
           font-family:'Cormorant Garamond',serif;font-style:italic;letter-spacing:2.5px;text-transform:uppercase;
           font-size:12.5px;color:var(--gold-soft);animation:breathe 2.6s ease-in-out infinite;pointer-events:none}
   .c-hint .hrt{color:#c94d72}
   @keyframes breathe{0%,100%{opacity:.5}50%{opacity:1}}
 
   /* ===== ПИСЬМО ===== */
-  .letter-wrap{position:relative;max-height:0;opacity:0;overflow:hidden;transform:translateY(50px);
-    transition:max-height 1.2s cubic-bezier(.2,.7,.2,1),opacity .5s ease .15s,transform .8s cubic-bezier(.2,.7,.2,1);
-    margin-top:0}
-  .stage.open .letter-wrap{max-height:9000px;opacity:1;transform:translateY(0);margin-top:16px}
-  .stage.open .cover{cursor:default}
+  .letter-wrap{position:relative;z-index:5;max-height:0;opacity:0;overflow:hidden;transform:translateY(60px);
+    transition:max-height 1.2s cubic-bezier(.2,.7,.2,1),opacity .5s ease .15s,transform .8s cubic-bezier(.2,.7,.2,1),
+               margin-bottom .8s cubic-bezier(.2,.7,.2,1);
+    margin-bottom:0}
+  /* письмо ложится ПОВЕРХ конверта: перекрывает его, снизу выглядывает «ВЫПУСК 2006» */
+  .stage.open .letter-wrap{max-height:9000px;opacity:1;transform:translateY(0);margin-bottom:-104%}
+  .cover{z-index:1}
+  .stage.open .cover{cursor:default;pointer-events:none}
   .stage.open .c-hint{display:none}
   .letter{position:relative;border-radius:14px;overflow:hidden;
           background:url('img/design/letterbg-tall.jpg');background-size:100% 100%;
           padding:9% 10.5% 8%;box-shadow:0 18px 40px -14px rgba(0,0,0,.7)}
 
-  .l-eye{text-align:center;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--burg);font-weight:600;margin-top:6px}
-  .l-big{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:46px;color:var(--burg);line-height:1.05;margin-top:2px}
-  .l-scr{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--burg-2)}
+  .l-eye{text-align:center;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--burg);font-weight:600;margin-top:6px;text-shadow:0 0 8px rgba(244,234,217,.95)}
+  .l-big{text-align:center;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:46px;color:var(--burg);line-height:1.05;margin-top:2px;font-variant-numeric:lining-nums;text-shadow:0 0 10px rgba(244,234,217,.95),0 0 20px rgba(244,234,217,.8)}
+  .l-scr{text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--burg-2);text-shadow:0 0 10px rgba(244,234,217,.95),0 0 20px rgba(244,234,217,.8)}
   .l-hrt{text-align:center;color:var(--burg);margin:8px 0 14px;font-size:13px}
-  .l-body{text-align:center;font-size:13px;line-height:1.7;color:#4a3f38;font-weight:300;overflow-wrap:break-word}
+  .l-body{text-align:center;font-size:13px;line-height:1.7;color:#4a3f38;font-weight:300;overflow-wrap:break-word;width:88%;margin:0 auto;text-shadow:0 0 8px rgba(244,234,217,.9),0 0 14px rgba(244,234,217,.7)}
   .l-body strong{font-weight:600;color:var(--burg-2)}
 
   .rows{margin-top:20px;display:grid;gap:14px}
@@ -93,10 +96,6 @@
 </head>
 <body>
 <div class="stage" id="stage">
-
-  <div class="cover" id="cover" role="button" tabindex="0" aria-label="Открыть приглашение">
-    <div class="c-hint">нажмите, чтобы открыть <span class="hrt">♥</span></div>
-  </div>
 
   <div class="letter-wrap">
     <div class="letter">
@@ -172,6 +171,10 @@
     </div>
   </div>
 
+  <div class="cover" id="cover" role="button" tabindex="0" aria-label="Открыть приглашение">
+    <div class="c-hint">нажмите, чтобы открыть <span class="hrt">♥</span></div>
+  </div>
+
 </div>
 
 <script>
@@ -206,8 +209,8 @@
     if(stage.classList.contains('open'))return;
     stage.classList.add('open');
     setTimeout(function(){
-      document.querySelector('.letter-wrap').scrollIntoView({behavior:'smooth',block:'start'});
-    },450);
+      window.scrollTo({top:0,behavior:'smooth'});
+    },250);
   }
   cover.addEventListener('click',open);
   cover.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
